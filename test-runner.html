@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Game Logic Tests</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1 { text-align: center; }
+        #test-results { margin-top: 20px; border: 1px solid #ccc; padding: 10px; }
+        .test-group { margin-bottom: 15px; }
+        .test-group h3 { margin-bottom: 5px; color: #333; }
+        .test-case { margin-left: 20px; padding: 5px; border-left: 2px solid #eee; }
+        .test-case.passed { color: green; }
+        .test-case.failed { color: red; font-weight: bold; }
+        .summary { margin-top: 20px; font-weight: bold; }
+        .summary .passed { color: green; }
+        .summary .failed { color: red; }
+    </style>
+</head>
+<body>
+    <!-- Added game-container to match index.html structure -->
+    <div class="game-container">
+        <h1>Tile-Matching Game Logic Tests</h1>
+
+        <!-- Mock HTML structure required by script.js -->
+        <div id="game-info">
+            <div id="score-container">Score: <span id="score">0</span></div>
+            <div id="timer-container">Time: <span id="timer">00:00</span></div>
+        </div>
+        <button id="restart-btn">Restart Game</button>
+        <div id="game-board"></div>
+    </div>
+
+    <div id="test-results">
+        <h2>Test Results:</h2>
+        <!-- Test results will be appended here by tests.js -->
+    </div>
+
+    <!-- Game script (must be loaded before tests) -->
+    <script src="script.js"></script>
+    <!-- Test script -->
+    <script src="tests.js"></script>
+</body>
+</html>

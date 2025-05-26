@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tile-Matching Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <h1>Tile-Matching Game</h1>
+        
+        <div id="game-info">
+            <div id="score-container">
+                Score: <span id="score">0</span>
+            </div>
+            <div id="timer-container">
+                Time: <span id="timer">00:00</span>
+            </div>
+        </div>
+
+        <div id="grid-size-selector">
+            <button class="grid-size-btn active" data-grid="4x4">4x4 (Easy)</button>
+            <button class="grid-size-btn" data-grid="4x5">4x5 (Medium)</button>
+            <button class="grid-size-btn" data-grid="6x6">6x6 (Hard)</button>
+        </div>
+
+        <button id="restart-btn">Restart Game</button>
+        
+        <div id="game-board">
+            <!-- Game tiles will be added here by JavaScript -->
+            <p>Game board placeholder</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

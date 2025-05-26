@@ -1,0 +1,316 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+body {
+    font-family: 'Poppins', Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding-top: 20px; /* Adjusted from margin-top */
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff; /* Default text color for better contrast on gradient */
+    /* Applying a placeholder custom cursor to the body. 
+       Replace 'help' with url('path/to/custom-cursor.cur'), auto; for an actual image. */
+    cursor: help; 
+}
+
+.game-container { /* Added a wrapper for better centering and potential styling */
+    /* Inherits body cursor, or can be set specifically: 
+       cursor: help; /* Placeholder for custom image */
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 20px 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    text-align: center;
+}
+
+h1 {
+    color: #fff;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    margin-bottom: 25px;
+}
+
+#game-info {
+    display: flex;
+    justify-content: space-around; /* Changed from space-between for potentially more items */
+    width: 100%; /* Max width of game container */
+    max-width: 380px; /* Increased width to accommodate better spacing */
+    margin: 0 auto 25px auto; /* Centering and margin */
+    font-size: 1.1em; /* Slightly adjusted */
+}
+
+#score-container, #timer-container {
+    padding: 12px 18px; /* Increased padding */
+    background-color: rgba(0, 0, 0, 0.2); /* Darker, semi-transparent */
+    border-radius: 10px; /* Softer radius */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    min-width: 120px; /* Ensure they don't look too small */
+    text-align: center;
+}
+
+#score, #timer {
+    font-weight: 600; /* Poppins bold */
+    font-size: 1.3em; /* Larger font for the numbers */
+}
+
+#score {
+    color: #86e75a; /* Brighter green */
+}
+
+#timer {
+    color: #f77272; /* Brighter red */
+}
+
+#restart-btn {
+    background-color: #ff758c; /* A vibrant pink/coral */
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1em;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer; /* Explicitly keep pointer for buttons, overrides body custom cursor */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-bottom: 25px; /* Consistent margin */
+}
+
+#restart-btn:hover {
+    background-color: #ff5c77; /* Darker shade on hover */
+    transform: translateY(-2px);
+}
+
+#restart-btn:active {
+    transform: translateY(1px);
+}
+
+#grid-size-selector {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.grid-size-btn {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 8px 15px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9em;
+    font-weight: 500;
+    border-radius: 6px;
+    cursor: pointer; /* Explicitly keep pointer for buttons, overrides body custom cursor */
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.grid-size-btn:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.grid-size-btn.active {
+    background-color: #ff758c; /* Use restart button's base color for active */
+    border-color: #ff758c;
+    color: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+#game-board {
+    display: grid;
+    gap: 8px; 
+    /* Max size for 6x6 grid with 70px tiles, 8px gap, 8px padding:
+       (6 * 70px) + (5 * 8px) + (2 * 8px) = 420 + 40 + 16 = 476px 
+       Set by JS for actual size, this is a fallback or max.
+    */
+    width: auto; /* Allow JS to set this based on content */
+    height: auto; /* Allow JS to set this based on content */
+    min-width: 320px; /* For default 4x4 grid */
+    min-height: 320px; /* For default 4x4 grid */
+    max-width: 476px; /* Accommodate 6x6 */
+    max-height: 476px; /* Accommodate 6x6 */
+    padding: 8px;
+    background-color: rgba(0, 0, 0, 0.15); 
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px; /* Softer radius */
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.3); /* Inner shadow for depth */
+}
+
+#game-board p { /* Placeholder text styling */
+    text-align: center;
+    color: rgba(255, 255, 255, 0.7);
+    margin: auto;
+    font-size: 1.2em;
+}
+
+.tile {
+    width: 70px; 
+    height: 70px;
+    background-color: #4a5568; /* Darker, muted tile color */
+    color: #fff; /* Emoji color (when revealed) */
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.5em; /* Larger emoji */
+    cursor: pointer; /* Explicitly keep pointer for interactive tiles, overrides body custom cursor */
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    
+    /* For flip animation */
+    perspective: 1000px; /* Add perspective to the parent for 3D effect depth */
+    transition: transform 0.6s ease, background-color 0.3s ease; /* Slower flip */
+    transform-style: preserve-3d; /* Crucial for 3D flip */
+}
+
+.tile .tile-front, .tile .tile-back { /* If using front/back divs for 3D flip */
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+}
+
+.tile .tile-front {
+    background-color: #4a5568; /* Initial "closed" state */
+    /* Content for front (e.g. a pattern or question mark) can be added here */
+}
+
+.tile .tile-back {
+    background-color: #63b3ed; /* Color when tile is flipped */
+    transform: rotateY(180deg); /* Back is initially rotated away */
+    /* Emoji will be set here by JS */
+}
+
+.tile.flipped {
+    /* This class will trigger the rotation */
+    transform: rotateY(180deg);
+    background-color: #63b3ed; /* Ensure background changes if not using front/back divs */
+}
+
+
+.tile:not(.matched):hover { /* Hover effect only on non-matched tiles */
+    transform: scale(1.08) rotateY(0deg); /* Keep Y rotation if not flipped */
+    box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+}
+
+.tile.flipped:not(.matched):hover {
+    transform: scale(1.08) rotateY(180deg); /* Keep Y rotation if flipped */
+     box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+}
+
+
+.tile.matched {
+    background-color: #48bb78; /* Green for matched tiles */
+    color: #fff;
+    transform: scale(0.95); /* Slightly shrink matched tiles */
+    cursor: default; /* Explicitly set default cursor for matched tiles */
+    opacity: 0.7; /* Make them look "solved" */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
+
+/* Responsive adjustments (example) */
+@media (max-width: 480px) {
+    body {
+        padding-top: 10px;
+    }
+    .game-container {
+        padding: 15px;
+        margin: 10px; /* Add margin for smaller screens */
+    }
+    h1 {
+        font-size: 1.8em;
+        margin-bottom: 15px;
+    }
+    #game-info {
+        flex-direction: column; /* Stack score and timer */
+        gap: 10px;
+        margin-bottom: 15px;
+        align-items: center; /* Center items when stacked */
+    }
+    #score-container, #timer-container {
+        width: 80%; /* Take more width when stacked */
+        max-width: 250px;
+        padding: 10px;
+    }
+    #restart-btn {
+        padding: 10px 20px;
+        font-size: 0.9em;
+        margin-bottom: 20px;
+    }
+    #game-board {
+        /* Adjust game board size if necessary, might require JS changes for tile sizes */
+        /* For now, keep it fixed as tile sizes are fixed. */
+        /* If tile sizes were % based, this would be easier. */
+        /* Example: reduce size slightly if viewport is too small */
+    /* This example assumes tile sizes remain fixed in JS for simplicity */
+    /* width: calc(4 * 60px + 3 * 6px + 2 * 6px); */ /* Example: 4 tiles of 60px, 3 gaps of 6px, padding 6px */
+    /* height: calc(4 * 60px + 3 * 6px + 2 * 6px); */
+    }
+    .tile { 
+        /* If tiles need to be smaller for larger grids to fit, adjust here or in JS */
+        /* For now, keeping tile size fixed at 70x70px as per previous styles */
+        /* width: 60px; */ 
+        /* height: 60px; */
+        /* font-size: 2em; */
+    }
+}
+
+/* Make sure to wrap game elements in index.html with <div class="game-container"> */
+/* H1, game-info, restart-btn, game-board should be inside this container */
+
+
+/* --- Visual Feedback Animations --- */
+
+/* Match Effect Animation */
+@keyframes popAndGlow {
+    0% {
+        /* Start from the flipped state appearance if needed */
+        transform: scale(1) rotateY(180deg);
+        box-shadow: 0 8px 15px rgba(0,0,0,0.3); /* Existing flipped hover shadow */
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.1) rotateY(180deg); /* Pop out slightly more */
+        box-shadow: 0 0 25px 8px #67e4a0; /* Brighter glow, more spread */
+        background-color: #59d089; /* Slightly lighter green during pop */
+        opacity: 1;
+    }
+    100% {
+        /* End state should match the .tile.matched state for smooth transition */
+        transform: scale(0.95) rotateY(180deg); /* final .matched scale */
+        opacity: 0.7; /* final .matched opacity */
+        box-shadow: 0 2px 5px rgba(0,0,0,0.15); /* final .matched shadow */
+        background-color: #48bb78; /* final .matched background */
+    }
+}
+
+.tile-matched-visual-effect {
+    /* Apply the animation. 'forwards' is key to retain the 100% state. */
+    animation: popAndGlow 0.7s ease-out forwards;
+    /* Ensure it overrides other properties correctly during animation */
+    z-index: 10; 
+}
+
+
+/* Mismatch Effect Animation */
+@keyframes shake {
+    0%, 100% { transform: translateX(0) rotateY(180deg); }
+    20%, 60% { transform: translateX(-4px) rotateY(180deg); }
+    40%, 80% { transform: translateX(4px) rotateY(180deg); }
+}
+
+.tile-mismatched-visual-effect {
+    animation: shake 0.35s ease-in-out;
+    background-color: #e57373 !important; /* Temporary red-ish background for mismatch */
+    border-color: #d32f2f !important; /* Darker red border */
+}
