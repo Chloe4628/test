@@ -4,8 +4,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const timerElement = document.getElementById('timer');
     const restartBtn = document.getElementById('restart-btn');
     const gridSizeButtons = document.querySelectorAll('.grid-size-btn');
+    
+    // Splash screen and main game interface elements
+    const splashScreen = document.getElementById('splash-screen');
+    const mainGameInterface = document.getElementById('main-game-interface');
+    const startGameBtn = document.getElementById('start-game-btn');
+    
+    // Pause, Resume, Exit elements
+    const pauseOverlay = document.getElementById('pause-overlay');
+    const pauseGameBtn = document.getElementById('pause-game-btn');
+    const resumeGameBtn = document.getElementById('resume-game-btn');
+    const exitGameBtn = document.getElementById('exit-game-btn');
+
+    // Win Screen elements
+    const winScreen = document.getElementById('win-screen');
+    const finalScoreDisplay = document.getElementById('final-score-display');
+    const playAgainBtn = document.getElementById('play-again-btn');
+
 
     // --- Game State Variables ---
+    let isPaused = false;
     let selectedGridSize = "4x4"; // Default grid size
     let currentRows = 4;
     let currentCols = 4;
@@ -109,6 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function handleTileClick() {
+        if (isPaused) return; // Prevent interaction if game is paused
         if (lockBoard) return;
         if (this.classList.contains('matched')) return; // Ignore already matched cards
         if (this === firstFlippedCard) return; // Prevent double clicking the same card
@@ -162,12 +181,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (matchedPairs * 2 === gameTiles.length) {
             clearInterval(timerInterval);
+            lockBoard = true; // Ensure board is locked
+            
+            // If game was paused when won, reset pause state and hide overlay
+            if (isPaused) {
+                isPaused = false;
+                if (pauseOverlay) pauseOverlay.style.display = 'none';
+            }
+            
+            // Delay showing win screen slightly to allow final match animation to be perceived
             setTimeout(() => {
-                alert(`Congratulations! You've matched all tiles! Final Score: ${score}`);
-            }, 700); // Delay alert slightly more to allow match animation to be perceived
+                showWinScreen(score);
+            }, 700); // Matches the alert delay previously used
+        } else {
+             // Only reset board state if game is not won yet
+            resetBoardState();
         }
-
-        resetBoardState(); // This should be called after animations if they are not blocking
     }
 
     function unflipCards() {
@@ -271,22 +300,120 @@ document.addEventListener('DOMContentLoaded', () => {
         startTimer(); // Start the timer automatically when game initializes/restarts
     }
 
-    // Event listener for the restart button
-    if (restartBtn) {
-        restartBtn.addEventListener('click', initializeGame);
+    // --- UI View Functions ---
+    function showSplashScreen() {
+        if (splashScreen) splashScreen.style.display = 'flex'; // Or 'block' if flex settings are in CSS
+        if (mainGameInterface) mainGameInterface.style.display = 'none';
     }
 
-    // Event listeners for grid size buttons
-    gridSizeButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            gridSizeButtons.forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
-            selectedGridSize = button.dataset.grid;
-            initializeGame();
+    function showGameInterface() {
+        if (splashScreen) splashScreen.style.display = 'none';
+        if (winScreen) winScreen.style.display = 'none'; // Hide win screen if visible
+        if (pauseOverlay) pauseOverlay.style.display = 'none'; // Hide pause overlay
+        if (mainGameInterface) {
+            mainGameInterface.style.display = 'flex'; 
+            mainGameInterface.style.flexDirection = 'column';
+            mainGameInterface.style.alignItems = 'center';
+        }
+    }
+
+    function showWinScreen(finalScore) {
+        if (mainGameInterface) mainGameInterface.style.display = 'none';
+        if (pauseOverlay) pauseOverlay.style.display = 'none'; // Ensure pause overlay is hidden
+        if (isPaused) isPaused = false; // Reset pause state
+
+        if (finalScoreDisplay) finalScoreDisplay.textContent = finalScore;
+        if (winScreen) winScreen.style.display = 'flex';
+    }
+
+    // --- Pause, Resume, Exit Functions ---
+    function pauseGame() {
+        if (!isPaused) {
+            isPaused = true;
+            clearInterval(timerInterval); // Stop the timer
+            if (pauseOverlay) pauseOverlay.style.display = 'flex';
+            lockBoard = true; // Effectively locks board by overlay and state
+        }
+    }
+
+    function resumeGame() {
+        if (isPaused) {
+            isPaused = false;
+            if (pauseOverlay) pauseOverlay.style.display = 'none';
+            // lockBoard will be false unless two cards are already flipped
+            lockBoard = (firstFlippedCard && secondFlippedCard) ? true : false; 
+            if (timeLeft > 0) { // Only restart timer if there's time left
+                startTimer(); // Restart the timer
+            } else {
+                // If time was already up when paused, ensure game remains over
+                lockBoard = true; 
+            }
+        }
+    }
+
+    function exitGame() {
+        isPaused = false;
+        clearInterval(timerInterval);
+        if (pauseOverlay) pauseOverlay.style.display = 'none';
+
+        // Reset game state variables
+        score = 0;
+        scoreElement.textContent = score;
+        timeLeft = 60; // Or get from a config
+        timerElement.textContent = formatTime(timeLeft);
+        matchedPairs = 0;
+        firstFlippedCard = null;
+        secondFlippedCard = null;
+        lockBoard = false;
+        if(gameBoard) gameBoard.innerHTML = ''; // Clear the game board
+
+        showSplashScreen();
+    }
+
+
+    // --- Initialize Event Listeners (Consolidated) ---
+    function initializeEventListeners() {
+        if (startGameBtn) {
+            startGameBtn.addEventListener('click', () => {
+                showGameInterface();
+                initializeGame();
+            });
+        }
+
+        if (restartBtn) {
+            restartBtn.addEventListener('click', initializeGame);
+        }
+
+        gridSizeButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                gridSizeButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                selectedGridSize = button.dataset.grid;
+                // NOTE: initializeGame() is NOT called here.
+                // Grid size selection takes effect on next "Start Game" or "Restart Game".
+            });
         });
-    });
 
-    // Call initializeGame to set up the board when the script loads
-    initializeGame();
+        if (playAgainBtn) {
+            playAgainBtn.addEventListener('click', () => {
+                if (winScreen) winScreen.style.display = 'none';
+                showSplashScreen();
+            });
+        }
 
+        if (pauseGameBtn) {
+            pauseGameBtn.addEventListener('click', pauseGame);
+        }
+        if (resumeGameBtn) {
+            resumeGameBtn.addEventListener('click', resumeGame);
+        }
+        if (exitGameBtn) {
+            exitGameBtn.addEventListener('click', exitGame);
+        }
+    }
+
+    // Initial setup
+    initializeEventListeners();
+    showSplashScreen();
+    // initializeGame(); // Game starts via "Start Game" button
 });

@@ -10,14 +10,11 @@ body {
     padding-top: 20px; /* Adjusted from margin-top */
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: #fff; /* Default text color for better contrast on gradient */
-    /* Applying a placeholder custom cursor to the body. 
-       Replace 'help' with url('path/to/custom-cursor.cur'), auto; for an actual image. */
-    cursor: help; 
+    /* Custom cursor rule removed, will revert to browser default (usually 'default') */
 }
 
 .game-container { /* Added a wrapper for better centering and potential styling */
-    /* Inherits body cursor, or can be set specifically: 
-       cursor: help; /* Placeholder for custom image */
+    /* Will inherit body's cursor (browser default) */
     background-color: rgba(255, 255, 255, 0.1);
     padding: 20px 30px;
     border-radius: 15px;
@@ -26,14 +23,94 @@ body {
     -webkit-backdrop-filter: blur(4px);
     border: 1px solid rgba(255, 255, 255, 0.18);
     text-align: center;
+    /* Ensure game container can hold splash screen appropriately */
+    min-height: 450px; /* Adjust as needed based on content */
+    display: flex; /* Make game-container a flex container */
+    flex-direction: column; /* Stack splash/main-game */
+    justify-content: center; /* Center content if it's smaller than min-height */
+    position: relative; /* For #pause-overlay positioning */
 }
 
-h1 {
+/* Main game interface H1 removed as it's no longer in HTML */
+
+/* More specific h1 for splash screen */
+#splash-screen h1 {
+    font-size: 2.8em; /* Larger for splash */
     color: #fff;
     font-weight: 700;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-    margin-bottom: 25px;
+    text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+    margin-bottom: 15px; /* Adjusted margin */
 }
+
+#splash-instructions {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+#splash-decor {
+    font-size: 3em; /* Large emojis */
+    margin-bottom: 20px;
+    /* Simple animation for decor */
+    animation: floatDecor 3s ease-in-out infinite;
+}
+
+@keyframes floatDecor {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+
+#start-game-btn {
+    background-color: #86e75a; /* Bright green, like score */
+    color: #333; /* Darker text for contrast on green */
+    border: none;
+    padding: 15px 35px; /* Larger padding */
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.3em; /* Larger font */
+    font-weight: 600;
+    border-radius: 10px; /* Softer radius */
+    cursor: pointer;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.25);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 10px; /* Space from instructions */
+}
+
+#start-game-btn:hover {
+    background-color: #70c14f; /* Darker green */
+    transform: translateY(-3px);
+}
+
+#start-game-btn:active {
+    transform: translateY(1px);
+}
+
+
+/* Initial display states */
+/* General h1 rule removed as specific H1s are styled or H1 from main game removed */
+
+#splash-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%; /* Take full height of game-container */
+    text-align: center;
+    /* Optional: Add a subtle background overlay if desired */
+    /* background-color: rgba(0,0,0,0.1); */
+    border-radius: 15px; /* Match game-container if splash is direct child */
+}
+
+#main-game-interface {
+    display: none; /* Hidden by default */
+    width: 100%; /* Take full width of game-container */
+    /* flex-direction, align-items, etc. already on game-container or body */
+    /* The h1 inside main-game-interface was removed from HTML, so no specific style needed here for it */
+}
+
+
+/* General h1 rule is removed as specific H1s are styled (splash) or the element was removed (main game) */
 
 #game-info {
     display: flex;
@@ -313,4 +390,155 @@ h1 {
     animation: shake 0.35s ease-in-out;
     background-color: #e57373 !important; /* Temporary red-ish background for mismatch */
     border-color: #d32f2f !important; /* Darker red border */
+}
+
+
+/* --- Pause and Exit Game Styles --- */
+#game-controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+    width: 100%; /* Ensure it takes available width for centering */
+}
+
+#pause-game-btn, #exit-game-btn {
+    color: white;
+    border: none;
+    padding: 10px 20px; /* Slightly smaller than restart for less emphasis */
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9em;
+    font-weight: 500;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#pause-game-btn {
+    background-color: #f0ad4e; /* Orange for pause */
+}
+#pause-game-btn:hover {
+    background-color: #ec9c3d;
+    transform: translateY(-1px);
+}
+
+#exit-game-btn {
+    background-color: #777; /* Grey for exit */
+}
+#exit-game-btn:hover {
+    background-color: #666;
+    transform: translateY(-1px);
+}
+
+#pause-overlay {
+    display: none; /* Hidden by default */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85); /* Darker overlay */
+    color: #fff;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000; /* Ensure it's on top */
+    border-radius: 15px; /* Match game-container rounding */
+    text-align: center;
+}
+
+#pause-overlay h2 {
+    font-size: 2.8em;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    margin-bottom: 25px;
+}
+
+#resume-game-btn {
+    background-color: #86e75a; /* Green, like start button */
+    color: #333;
+    border: none;
+    padding: 12px 30px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.2em;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#resume-game-btn:hover {
+    background-color: #70c14f;
+    transform: translateY(-2px);
+}
+
+
+/* --- Game Won Screen Styles --- */
+#win-screen {
+    display: none; /* Hidden by default */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); /* Celebratory gold/orange gradient */
+    color: #4A3F35; /* Darker text for contrast on bright background */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000; /* Same level as pause-overlay, ensure only one is active */
+    border-radius: 15px; /* Match game-container rounding */
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+#win-screen h2 {
+    font-size: 2.8em;
+    font-weight: 700;
+    text-shadow: 1px 1px 2px rgba(255,255,255,0.5); /* Lighter shadow for dark text */
+    margin-bottom: 15px;
+}
+
+#win-screen p {
+    font-size: 1.3em;
+    margin-bottom: 10px;
+}
+
+#final-score-display {
+    font-weight: bold;
+    font-size: 1.5em;
+    color: #d9534f; /* Similar to timer color for emphasis */
+}
+
+#win-decor {
+    font-size: 3.5em;
+    margin: 20px 0;
+    animation: winDecorPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes winDecorPulse {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.15); opacity: 1; }
+}
+
+#play-again-btn {
+    background-color: #ff758c; /* Same as restart button */
+    color: white;
+    border: none;
+    padding: 15px 35px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.3em;
+    font-weight: 600;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.25);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 20px;
+}
+
+#play-again-btn:hover {
+    background-color: #ff5c77; /* Darker shade */
+    transform: translateY(-3px);
 }
