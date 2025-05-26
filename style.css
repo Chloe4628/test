@@ -10,11 +10,9 @@ body {
     padding-top: 20px; /* Adjusted from margin-top */
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: #fff; /* Default text color for better contrast on gradient */
-    /* Custom cursor rule removed, will revert to browser default (usually 'default') */
 }
 
-.game-container { /* Added a wrapper for better centering and potential styling */
-    /* Will inherit body's cursor (browser default) */
+.game-container {
     background-color: rgba(255, 255, 255, 0.1);
     padding: 20px 30px;
     border-radius: 15px;
@@ -23,23 +21,20 @@ body {
     -webkit-backdrop-filter: blur(4px);
     border: 1px solid rgba(255, 255, 255, 0.18);
     text-align: center;
-    /* Ensure game container can hold splash screen appropriately */
-    min-height: 450px; /* Adjust as needed based on content */
-    display: flex; /* Make game-container a flex container */
-    flex-direction: column; /* Stack splash/main-game */
-    justify-content: center; /* Center content if it's smaller than min-height */
-    position: relative; /* For #pause-overlay positioning */
+    min-height: 450px; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    position: relative; 
 }
 
-/* Main game interface H1 removed as it's no longer in HTML */
-
-/* More specific h1 for splash screen */
+/* Splash Screen Styles */
 #splash-screen h1 {
-    font-size: 2.8em; /* Larger for splash */
+    font-size: 2.8em; 
     color: #fff;
     font-weight: 700;
     text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
-    margin-bottom: 15px; /* Adjusted margin */
+    margin-bottom: 15px; 
 }
 
 #splash-instructions {
@@ -49,9 +44,8 @@ body {
 }
 
 #splash-decor {
-    font-size: 3em; /* Large emojis */
+    font-size: 3em; 
     margin-bottom: 20px;
-    /* Simple animation for decor */
     animation: floatDecor 3s ease-in-out infinite;
 }
 
@@ -60,24 +54,23 @@ body {
     50% { transform: translateY(-10px); }
 }
 
-
 #start-game-btn {
-    background-color: #86e75a; /* Bright green, like score */
-    color: #333; /* Darker text for contrast on green */
+    background-color: #86e75a; 
+    color: #333; 
     border: none;
-    padding: 15px 35px; /* Larger padding */
+    padding: 15px 35px; 
     font-family: 'Poppins', sans-serif;
-    font-size: 1.3em; /* Larger font */
+    font-size: 1.3em; 
     font-weight: 600;
-    border-radius: 10px; /* Softer radius */
+    border-radius: 10px; 
     cursor: pointer;
     box-shadow: 0 5px 20px rgba(0,0,0,0.25);
     transition: background-color 0.3s ease, transform 0.2s ease;
-    margin-top: 10px; /* Space from instructions */
+    margin-top: 10px; 
 }
 
 #start-game-btn:hover {
-    background-color: #70c14f; /* Darker green */
+    background-color: #70c14f; 
     transform: translateY(-3px);
 }
 
@@ -85,87 +78,51 @@ body {
     transform: translateY(1px);
 }
 
-
-/* Initial display states */
-/* General h1 rule removed as specific H1s are styled or H1 from main game removed */
-
+/* Initial Display States for Screens */
 #splash-screen {
-    display: flex;
+    display: flex; /* JS will manage this, but flex is its active state */
     flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 100%; /* Take full height of game-container */
+    height: 100%; 
     text-align: center;
-    /* Optional: Add a subtle background overlay if desired */
-    /* background-color: rgba(0,0,0,0.1); */
-    border-radius: 15px; /* Match game-container if splash is direct child */
+    border-radius: 15px; 
 }
 
 #main-game-interface {
     display: none; /* Hidden by default */
-    width: 100%; /* Take full width of game-container */
-    /* flex-direction, align-items, etc. already on game-container or body */
-    /* The h1 inside main-game-interface was removed from HTML, so no specific style needed here for it */
+    width: 100%; 
+    flex-direction: column; /* Added for when it becomes flex */
+    align-items: center;   /* Added for when it becomes flex */
 }
 
-
-/* General h1 rule is removed as specific H1s are styled (splash) or the element was removed (main game) */
-
+/* In-Game UI Styles */
 #game-info {
     display: flex;
-    justify-content: space-around; /* Changed from space-between for potentially more items */
-    width: 100%; /* Max width of game container */
-    max-width: 380px; /* Increased width to accommodate better spacing */
-    margin: 0 auto 25px auto; /* Centering and margin */
-    font-size: 1.1em; /* Slightly adjusted */
+    justify-content: space-around; 
+    width: 100%; 
+    max-width: 380px; 
+    margin: 0 auto 25px auto; 
+    font-size: 1.1em; 
 }
 
 #score-container, #timer-container {
-    padding: 12px 18px; /* Increased padding */
-    background-color: rgba(0, 0, 0, 0.2); /* Darker, semi-transparent */
-    border-radius: 10px; /* Softer radius */
+    padding: 12px 18px; 
+    background-color: rgba(0, 0, 0, 0.2); 
+    border-radius: 10px; 
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    min-width: 120px; /* Ensure they don't look too small */
+    min-width: 120px; 
     text-align: center;
 }
 
 #score, #timer {
-    font-weight: 600; /* Poppins bold */
-    font-size: 1.3em; /* Larger font for the numbers */
+    font-weight: 600; 
+    font-size: 1.3em; 
 }
 
-#score {
-    color: #86e75a; /* Brighter green */
-}
-
-#timer {
-    color: #f77272; /* Brighter red */
-}
-
-#restart-btn {
-    background-color: #ff758c; /* A vibrant pink/coral */
-    color: white;
-    border: none;
-    padding: 12px 25px;
-    font-family: 'Poppins', sans-serif;
-    font-size: 1em;
-    font-weight: 600;
-    border-radius: 8px;
-    cursor: pointer; /* Explicitly keep pointer for buttons, overrides body custom cursor */
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    margin-bottom: 25px; /* Consistent margin */
-}
-
-#restart-btn:hover {
-    background-color: #ff5c77; /* Darker shade on hover */
-    transform: translateY(-2px);
-}
-
-#restart-btn:active {
-    transform: translateY(1px);
-}
+#score { color: #86e75a; }
+#timer { color: #f77272; }
 
 #grid-size-selector {
     display: flex;
@@ -183,7 +140,7 @@ body {
     font-size: 0.9em;
     font-weight: 500;
     border-radius: 6px;
-    cursor: pointer; /* Explicitly keep pointer for buttons, overrides body custom cursor */
+    cursor: pointer; 
     transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
@@ -193,33 +150,53 @@ body {
 }
 
 .grid-size-btn.active {
-    background-color: #ff758c; /* Use restart button's base color for active */
+    background-color: #ff758c; 
     border-color: #ff758c;
     color: white;
     box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
 
+#restart-btn {
+    background-color: #ff758c; 
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1em;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-bottom: 25px; 
+}
+
+#restart-btn:hover {
+    background-color: #ff5c77; 
+    transform: translateY(-2px);
+}
+
+#restart-btn:active {
+    transform: translateY(1px);
+}
+
 #game-board {
     display: grid;
     gap: 8px; 
-    /* Max size for 6x6 grid with 70px tiles, 8px gap, 8px padding:
-       (6 * 70px) + (5 * 8px) + (2 * 8px) = 420 + 40 + 16 = 476px 
-       Set by JS for actual size, this is a fallback or max.
-    */
-    width: auto; /* Allow JS to set this based on content */
-    height: auto; /* Allow JS to set this based on content */
-    min-width: 320px; /* For default 4x4 grid */
-    min-height: 320px; /* For default 4x4 grid */
-    max-width: 476px; /* Accommodate 6x6 */
-    max-height: 476px; /* Accommodate 6x6 */
+    width: auto; 
+    height: auto; 
+    min-width: 320px; 
+    min-height: 320px; 
+    max-width: 476px; 
+    max-height: 476px; 
     padding: 8px;
     background-color: rgba(0, 0, 0, 0.15); 
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 10px; /* Softer radius */
-    box-shadow: inset 0 0 10px rgba(0,0,0,0.3); /* Inner shadow for depth */
+    border-radius: 10px; 
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.3); 
 }
 
-#game-board p { /* Placeholder text styling */
+#game-board p { 
     text-align: center;
     color: rgba(255, 255, 255, 0.7);
     margin: auto;
@@ -229,157 +206,71 @@ body {
 .tile {
     width: 70px; 
     height: 70px;
-    background-color: #4a5568; /* Darker, muted tile color */
-    color: #fff; /* Emoji color (when revealed) */
+    background-color: #4a5568; 
+    color: #fff; 
     border: 1px solid rgba(255,255,255,0.1);
     border-radius: 8px;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 2.5em; /* Larger emoji */
-    cursor: pointer; /* Explicitly keep pointer for interactive tiles, overrides body custom cursor */
+    font-size: 2.5em; 
+    cursor: pointer; 
     box-shadow: 0 5px 10px rgba(0,0,0,0.2);
-    
-    /* For flip animation */
-    perspective: 1000px; /* Add perspective to the parent for 3D effect depth */
-    transition: transform 0.6s ease, background-color 0.3s ease; /* Slower flip */
-    transform-style: preserve-3d; /* Crucial for 3D flip */
-}
-
-.tile .tile-front, .tile .tile-back { /* If using front/back divs for 3D flip */
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 8px;
-}
-
-.tile .tile-front {
-    background-color: #4a5568; /* Initial "closed" state */
-    /* Content for front (e.g. a pattern or question mark) can be added here */
-}
-
-.tile .tile-back {
-    background-color: #63b3ed; /* Color when tile is flipped */
-    transform: rotateY(180deg); /* Back is initially rotated away */
-    /* Emoji will be set here by JS */
+    perspective: 1000px; 
+    transition: transform 0.6s ease, background-color 0.3s ease; 
+    transform-style: preserve-3d; 
 }
 
 .tile.flipped {
-    /* This class will trigger the rotation */
     transform: rotateY(180deg);
-    background-color: #63b3ed; /* Ensure background changes if not using front/back divs */
+    background-color: #63b3ed; 
 }
 
-
-.tile:not(.matched):hover { /* Hover effect only on non-matched tiles */
-    transform: scale(1.08) rotateY(0deg); /* Keep Y rotation if not flipped */
+.tile:not(.matched):hover { 
+    transform: scale(1.08) rotateY(0deg); 
     box-shadow: 0 8px 15px rgba(0,0,0,0.3);
 }
 
 .tile.flipped:not(.matched):hover {
-    transform: scale(1.08) rotateY(180deg); /* Keep Y rotation if flipped */
+    transform: scale(1.08) rotateY(180deg); 
      box-shadow: 0 8px 15px rgba(0,0,0,0.3);
 }
 
-
 .tile.matched {
-    background-color: #48bb78; /* Green for matched tiles */
+    background-color: #48bb78; 
     color: #fff;
-    transform: scale(0.95); /* Slightly shrink matched tiles */
-    cursor: default; /* Explicitly set default cursor for matched tiles */
-    opacity: 0.7; /* Make them look "solved" */
+    transform: scale(0.95); 
+    cursor: default; 
+    opacity: 0.7; 
     box-shadow: 0 2px 5px rgba(0,0,0,0.15);
 }
 
-/* Responsive adjustments (example) */
-@media (max-width: 480px) {
-    body {
-        padding-top: 10px;
-    }
-    .game-container {
-        padding: 15px;
-        margin: 10px; /* Add margin for smaller screens */
-    }
-    h1 {
-        font-size: 1.8em;
-        margin-bottom: 15px;
-    }
-    #game-info {
-        flex-direction: column; /* Stack score and timer */
-        gap: 10px;
-        margin-bottom: 15px;
-        align-items: center; /* Center items when stacked */
-    }
-    #score-container, #timer-container {
-        width: 80%; /* Take more width when stacked */
-        max-width: 250px;
-        padding: 10px;
-    }
-    #restart-btn {
-        padding: 10px 20px;
-        font-size: 0.9em;
-        margin-bottom: 20px;
-    }
-    #game-board {
-        /* Adjust game board size if necessary, might require JS changes for tile sizes */
-        /* For now, keep it fixed as tile sizes are fixed. */
-        /* If tile sizes were % based, this would be easier. */
-        /* Example: reduce size slightly if viewport is too small */
-    /* This example assumes tile sizes remain fixed in JS for simplicity */
-    /* width: calc(4 * 60px + 3 * 6px + 2 * 6px); */ /* Example: 4 tiles of 60px, 3 gaps of 6px, padding 6px */
-    /* height: calc(4 * 60px + 3 * 6px + 2 * 6px); */
-    }
-    .tile { 
-        /* If tiles need to be smaller for larger grids to fit, adjust here or in JS */
-        /* For now, keeping tile size fixed at 70x70px as per previous styles */
-        /* width: 60px; */ 
-        /* height: 60px; */
-        /* font-size: 2em; */
-    }
-}
-
-/* Make sure to wrap game elements in index.html with <div class="game-container"> */
-/* H1, game-info, restart-btn, game-board should be inside this container */
-
-
-/* --- Visual Feedback Animations --- */
-
-/* Match Effect Animation */
+/* Visual Feedback Animations */
 @keyframes popAndGlow {
     0% {
-        /* Start from the flipped state appearance if needed */
         transform: scale(1) rotateY(180deg);
-        box-shadow: 0 8px 15px rgba(0,0,0,0.3); /* Existing flipped hover shadow */
+        box-shadow: 0 8px 15px rgba(0,0,0,0.3); 
         opacity: 1;
     }
     50% {
-        transform: scale(1.1) rotateY(180deg); /* Pop out slightly more */
-        box-shadow: 0 0 25px 8px #67e4a0; /* Brighter glow, more spread */
-        background-color: #59d089; /* Slightly lighter green during pop */
+        transform: scale(1.1) rotateY(180deg); 
+        box-shadow: 0 0 25px 8px #67e4a0; 
+        background-color: #59d089; 
         opacity: 1;
     }
     100% {
-        /* End state should match the .tile.matched state for smooth transition */
-        transform: scale(0.95) rotateY(180deg); /* final .matched scale */
-        opacity: 0.7; /* final .matched opacity */
-        box-shadow: 0 2px 5px rgba(0,0,0,0.15); /* final .matched shadow */
-        background-color: #48bb78; /* final .matched background */
+        transform: scale(0.95) rotateY(180deg); 
+        opacity: 0.7; 
+        box-shadow: 0 2px 5px rgba(0,0,0,0.15); 
+        background-color: #48bb78; 
     }
 }
 
 .tile-matched-visual-effect {
-    /* Apply the animation. 'forwards' is key to retain the 100% state. */
     animation: popAndGlow 0.7s ease-out forwards;
-    /* Ensure it overrides other properties correctly during animation */
     z-index: 10; 
 }
 
-
-/* Mismatch Effect Animation */
 @keyframes shake {
     0%, 100% { transform: translateX(0) rotateY(180deg); }
     20%, 60% { transform: translateX(-4px) rotateY(180deg); }
@@ -388,24 +279,23 @@ body {
 
 .tile-mismatched-visual-effect {
     animation: shake 0.35s ease-in-out;
-    background-color: #e57373 !important; /* Temporary red-ish background for mismatch */
-    border-color: #d32f2f !important; /* Darker red border */
+    background-color: #e57373 !important; 
+    border-color: #d32f2f !important; 
 }
 
-
-/* --- Pause and Exit Game Styles --- */
+/* Pause and Exit Game Styles */
 #game-controls {
     display: flex;
     justify-content: center;
     gap: 15px;
     margin-top: 20px;
-    width: 100%; /* Ensure it takes available width for centering */
+    width: 100%; 
 }
 
 #pause-game-btn, #exit-game-btn {
     color: white;
     border: none;
-    padding: 10px 20px; /* Slightly smaller than restart for less emphasis */
+    padding: 10px 20px; 
     font-family: 'Poppins', sans-serif;
     font-size: 0.9em;
     font-weight: 500;
@@ -415,36 +305,22 @@ body {
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-#pause-game-btn {
-    background-color: #f0ad4e; /* Orange for pause */
-}
-#pause-game-btn:hover {
-    background-color: #ec9c3d;
-    transform: translateY(-1px);
-}
-
-#exit-game-btn {
-    background-color: #777; /* Grey for exit */
-}
-#exit-game-btn:hover {
-    background-color: #666;
-    transform: translateY(-1px);
-}
+#pause-game-btn { background-color: #f0ad4e; }
+#pause-game-btn:hover { background-color: #ec9c3d; transform: translateY(-1px); }
+#exit-game-btn { background-color: #777; }
+#exit-game-btn:hover { background-color: #666; transform: translateY(-1px); }
 
 #pause-overlay {
-    display: none; /* Hidden by default */
+    display: none; 
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.85); /* Darker overlay */
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.85); 
     color: #fff;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    z-index: 1000; /* Ensure it's on top */
-    border-radius: 15px; /* Match game-container rounding */
+    z-index: 1000; 
+    border-radius: 15px; 
     text-align: center;
 }
 
@@ -455,7 +331,7 @@ body {
 }
 
 #resume-game-btn {
-    background-color: #86e75a; /* Green, like start button */
+    background-color: #86e75a; 
     color: #333;
     border: none;
     padding: 12px 30px;
@@ -473,31 +349,27 @@ body {
     transform: translateY(-2px);
 }
 
-
-/* --- Game Won Screen Styles --- */
+/* Game Won Screen Styles */
 #win-screen {
-    display: none; /* Hidden by default */
+    display: none; 
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); /* Celebratory gold/orange gradient */
-    color: #4A3F35; /* Darker text for contrast on bright background */
-    flex-direction: column;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); 
+    color: #4A3F35; 
+    flex-direction: column; 
     align-items: center;
     justify-content: center;
-    z-index: 1000; /* Same level as pause-overlay, ensure only one is active */
-    border-radius: 15px; /* Match game-container rounding */
+    z-index: 1000; 
+    border-radius: 15px; 
     text-align: center;
     padding: 20px;
-    box-sizing: border-box;
+    box-sizing: border-box; 
 }
 
 #win-screen h2 {
     font-size: 2.8em;
     font-weight: 700;
-    text-shadow: 1px 1px 2px rgba(255,255,255,0.5); /* Lighter shadow for dark text */
+    text-shadow: 1px 1px 2px rgba(255,255,255,0.5); 
     margin-bottom: 15px;
 }
 
@@ -509,7 +381,7 @@ body {
 #final-score-display {
     font-weight: bold;
     font-size: 1.5em;
-    color: #d9534f; /* Similar to timer color for emphasis */
+    color: #d9534f; 
 }
 
 #win-decor {
@@ -524,7 +396,7 @@ body {
 }
 
 #play-again-btn {
-    background-color: #ff758c; /* Same as restart button */
+    background-color: #ff758c; 
     color: white;
     border: none;
     padding: 15px 35px;
@@ -539,6 +411,27 @@ body {
 }
 
 #play-again-btn:hover {
-    background-color: #ff5c77; /* Darker shade */
+    background-color: #ff5c77; 
     transform: translateY(-3px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    body { padding-top: 10px; }
+    .game-container { padding: 15px; margin: 10px; min-height: auto; /* Allow shrinking */ }
+    #splash-screen h1, #win-screen h2, #pause-overlay h2 { font-size: 2.2em; }
+    #splash-instructions, #win-screen p { font-size: 1em; }
+    #start-game-btn, #resume-game-btn, #play-again-btn { font-size: 1.1em; padding: 12px 25px; }
+    #splash-decor, #win-decor { font-size: 2.5em; }
+    
+    #game-info { flex-direction: column; gap: 10px; margin-bottom: 15px; align-items: center; }
+    #score-container, #timer-container { width: 80%; max-width: 250px; padding: 10px; }
+    #grid-size-selector { gap: 5px; }
+    .grid-size-btn { padding: 6px 10px; font-size: 0.8em;}
+    #restart-btn, #pause-game-btn, #exit-game-btn { font-size: 0.8em; padding: 8px 15px; }
+    #game-controls { margin-top: 15px; }
+
+    /* Game board and tile responsiveness would require JS changes for tile sizes or more complex CSS.
+       The current fixed tile sizes will make larger boards potentially overflow on very small screens.
+       This media query primarily handles UI elements around the board. */
 }
