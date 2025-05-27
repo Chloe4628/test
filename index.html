@@ -3,65 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tile-Matching Game</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Jules's Game World!</title>
+    <style>
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #74EBD5 0%, #9FACE6 100%); /* Light, playful gradient */
+            color: #333;
+            box-sizing: border-box;
+        }
+        .hub-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            width: 100%;
+            max-width: 600px;
+        }
+        h1 {
+            font-size: 2.8em;
+            color: #ff758c; /* Playful pink */
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+        nav li {
+            margin-bottom: 15px;
+        }
+        nav a {
+            display: inline-block;
+            background-color: #86e75a; /* Bright green */
+            color: #333;
+            padding: 12px 25px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 1.2em;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+        nav a:hover {
+            background-color: #70c14f; /* Darker green */
+            transform: translateY(-2px) scale(1.05);
+        }
+        footer {
+            margin-top: 40px;
+            font-size: 0.9em;
+            color: #555;
+        }
+    </style>
 </head>
 <body>
-    <div class="game-container">
-        <div id="splash-screen">
-            <div id="splash-decor">🎉🧠💡</div>
-            <h1>Emoji Match Master</h1>
-            <p id="splash-instructions">Match the pairs before time runs out!</p>
-            <button id="start-game-btn">Start Game</button>
-        </div>
-
-        <div id="main-game-interface">
-            <!-- Game title removed, splash screen has "Emoji Match Master" -->
-            
-            <div id="game-info">
-                <div id="score-container">
-                    Score: <span id="score">0</span>
-                </div>
-                <div id="timer-container">
-                    Time: <span id="timer">00:00</span>
-                </div>
-            </div>
-
-            <div id="grid-size-selector">
-                <button class="grid-size-btn active" data-grid="4x4">4x4 (Easy)</button>
-                <button class="grid-size-btn" data-grid="4x5">4x5 (Medium)</button>
-                <button class="grid-size-btn" data-grid="6x6">6x6 (Hard)</button>
-            </div>
-
-            <button id="restart-btn">Restart Game</button>
-            
-            <div id="game-board">
-                <!-- Game tiles will be added here by JavaScript -->
-                <p>Game board placeholder</p>
-            </div>
-
-            <div id="game-controls">
-                <button id="pause-game-btn">Pause</button>
-                <button id="exit-game-btn">Exit Game</button>
-            </div>
-        </div>
-
-        <div id="pause-overlay">
-            <h2>Paused</h2>
-            <button id="resume-game-btn">Resume</button>
-        </div>
-
-        <!-- New Win Screen -->
-        <div id="win-screen" class="game-screen">
-            <div class="win-content">
-                <div class="win-icons">✨🌟🎉💖</div>
-                <h2>Congratulations!</h2>
-                <button id="back-to-splash-btn">Back to Start</button>
-            </div>
-        </div>
-
+    <div class="hub-container">
+        <h1>🎉 Welcome to Jules's Game World! 🎮</h1>
+        <nav>
+            <ul>
+                <li><a href="emoji-match-master/game.html">🚀 Emoji Match Master ✨</a></li>
+                <li><a href="emoji-tic-tac-toe/game.html">💖 Emoji Tic-Tac-Toe ❌</a></li>
+                <!-- More games can be added here -->
+            </ul>
+        </nav>
+        <footer>
+            <p>Select a game to play!</p>
+        </footer>
     </div>
-
-    <script src="script.js"></script>
 </body>
 </html>

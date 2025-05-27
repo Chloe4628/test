@@ -1,0 +1,209 @@
+/* EMOJI MATCH MASTER - GAME-SPECIFIC STYLES */
+
+/* Styles specific to the Emoji Match Master game interface */
+
+/* Body is styled by shared/common-ui.css */
+/* .game-container is styled by shared/common-ui.css */
+
+/* Splash Screen and its specific content styles are in shared/common-ui.css,
+   but if Emoji Match Master had unique H1 styling for its splash, it would go here.
+   Example:
+   #splash-screen h1 {
+       color: #specific-game-color; 
+   }
+*/
+
+/* Main Game Interface specific styles */
+#main-game-interface {
+    /* Flex properties are now set by JS in showGameInterface, 
+       or could be in shared/common-ui.css if #main-game-interface is a common ID pattern */
+}
+
+#game-info {
+    display: flex;
+    justify-content: space-around; 
+    width: 100%; 
+    max-width: 380px; 
+    margin: 0 auto 25px auto; 
+    font-size: 1.1em; 
+}
+
+#score-container, #timer-container {
+    padding: 12px 18px; 
+    background-color: rgba(0, 0, 0, 0.2); 
+    border-radius: 10px; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    min-width: 120px; 
+    text-align: center;
+}
+
+#score, #timer {
+    font-weight: 600; 
+    font-size: 1.3em; 
+}
+
+#score { color: #86e75a; }
+#timer { color: #f77272; }
+
+/* Grid Size Selector Buttons - using common button base, but specific styling here */
+#grid-size-selector {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.grid-size-btn { /* This is a .game-button-secondary.translucent */
+    /* Base styles from .game-button, .game-button-secondary, .translucent in common-ui.css */
+}
+.grid-size-btn.active { /* This is .game-button-secondary.translucent.active */
+    /* Active state from common-ui.css */
+}
+
+
+/* Restart Button - specific instance of a .game-button */
+#restart-btn { /* This is a .game-button.pink (similar to play-again) */
+    background-color: #ff758c; 
+    /* Other .game-button styles apply from common-ui.css */
+    /* margin-bottom is handled by #game-controls or specific layout needs if outside */
+}
+#restart-btn:hover {
+    background-color: #ff5c77; 
+}
+
+/* #game-controls is now styled in shared/common-ui.css */
+
+#pause-game-btn { /* This is a .game-button-secondary.orange */
+    /* Styles from common-ui.css */
+}
+#exit-game-btn { /* This is a .game-button-secondary.grey */
+    /* Styles from common-ui.css */
+}
+
+
+/* Game Board and Tile Styles (Specific to Emoji Match Master) */
+#game-board {
+    display: grid;
+    gap: 8px; 
+    width: auto; 
+    height: auto; 
+    min-width: 320px; 
+    min-height: 320px; 
+    max-width: 476px; 
+    max-height: 476px; 
+    padding: 8px;
+    background-color: rgba(0, 0, 0, 0.15); 
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px; 
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.3); 
+}
+
+#game-board p { /* Placeholder text */
+    text-align: center;
+    color: rgba(255, 255, 255, 0.7);
+    margin: auto;
+    font-size: 1.2em;
+}
+
+.tile {
+    width: 70px; 
+    height: 70px;
+    background-color: #4a5568; 
+    color: #fff; 
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.5em; 
+    cursor: pointer; 
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    perspective: 1000px; 
+    transition: transform 0.6s ease, background-color 0.3s ease; 
+    transform-style: preserve-3d; 
+}
+
+.tile.flipped {
+    transform: rotateY(180deg);
+    background-color: #63b3ed; 
+}
+
+.tile:not(.matched):hover { 
+    transform: scale(1.08) rotateY(0deg); 
+    box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+}
+
+.tile.flipped:not(.matched):hover {
+    transform: scale(1.08) rotateY(180deg); 
+     box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+}
+
+.tile.matched {
+    background-color: #48bb78; 
+    color: #fff;
+    transform: scale(0.95); 
+    cursor: default; 
+    opacity: 0.7; 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
+
+/* Visual Feedback Animations (Tile specific - keep here) */
+@keyframes popAndGlow {
+    0% {
+        transform: scale(1) rotateY(180deg);
+        box-shadow: 0 8px 15px rgba(0,0,0,0.3); 
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.1) rotateY(180deg); 
+        box-shadow: 0 0 25px 8px #67e4a0; 
+        background-color: #59d089; 
+        opacity: 1;
+    }
+    100% {
+        transform: scale(0.95) rotateY(180deg); 
+        opacity: 0.7; 
+        box-shadow: 0 2px 5px rgba(0,0,0,0.15); 
+        background-color: #48bb78; 
+    }
+}
+
+.tile-matched-visual-effect {
+    animation: popAndGlow 0.7s ease-out forwards;
+    z-index: 10; 
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0) rotateY(180deg); }
+    20%, 60% { transform: translateX(-4px) rotateY(180deg); }
+    40%, 80% { transform: translateX(4px) rotateY(180deg); }
+}
+
+.tile-mismatched-visual-effect {
+    animation: shake 0.35s ease-in-out;
+    background-color: #e57373 !important; 
+    border-color: #d32f2f !important; 
+}
+
+
+/* Pause Overlay, Win Screen styles are now in shared/common-ui.css */
+
+/* Game-specific responsive adjustments (if any beyond common ones) */
+@media (max-width: 480px) {
+    /* Common responsive rules are in shared/common-ui.css */
+    
+    /* Emoji Match Master specific responsive rules */
+    #game-info { flex-direction: column; gap: 10px; margin-bottom: 15px; align-items: center; }
+    #score-container, #timer-container { width: 80%; max-width: 250px; padding: 10px; }
+    #grid-size-selector { gap: 5px; }
+    /* .grid-size-btn uses .game-button-secondary, responsive handled by common if font-size changes there */
+    /* #restart-btn uses .game-button, responsive handled by common if font-size changes there */
+    /* #pause-game-btn, #exit-game-btn use .game-button-secondary */
+    #game-controls { margin-top: 15px; }
+
+    /* Note: Tile and game board size responsiveness for very small screens 
+       would ideally involve JS adjusting tile sizes or more complex CSS grid adjustments.
+       The current fixed tile sizes (70px) are maintained.
+       The common responsive styles might adjust overall container padding.
+    */
+}

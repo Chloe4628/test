@@ -29,6 +29,19 @@
         </div>
         <button id="restart-btn">Restart Game</button>
         <div id="game-board"></div>
+        <!-- Minimal mock for new elements to prevent JS errors if script.js tries to access them -->
+        <div id="splash-screen" style="display: none;"></div>
+        <div id="main-game-interface" style="display: block;"></div>
+        <div id="pause-overlay" style="display: none;"></div>
+        <div id="win-screen" style="display: none;"></div>
+        <button id="start-game-btn" style="display: none;"></button>
+        <button id="pause-game-btn" style="display: none;"></button>
+        <button id="resume-game-btn" style="display: none;"></button>
+        <button id="exit-game-btn" style="display: none;"></button>
+        <button id="play-again-btn" style="display: none;"></button>
+        <div id="grid-size-selector">
+             <button class="grid-size-btn active" data-grid="4x4"></button> <!-- Mock one button -->
+        </div>
     </div>
 
     <div id="test-results">

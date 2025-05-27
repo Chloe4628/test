@@ -20,7 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const winScreen = document.getElementById('win-screen');
     const finalScoreDisplay = document.getElementById('final-score-display');
     const playAgainBtn = document.getElementById('play-again-btn');
-    const backToSplashBtn = document.getElementById('back-to-splash-btn');
 
 
     // --- Game State Variables ---
@@ -301,42 +300,16 @@ document.addEventListener('DOMContentLoaded', () => {
         startTimer(); // Start the timer automatically when game initializes/restarts
     }
 
-    // --- UI View Functions ---
-    function showSplashScreen() {
-        if (splashScreen) splashScreen.style.display = 'flex'; // Or 'block' if flex settings are in CSS
-        if (mainGameInterface) mainGameInterface.style.display = 'none';
-        if (winScreen) winScreen.style.display = 'none'; // Ensure win screen is hidden
-        if (pauseOverlay) pauseOverlay.style.display = 'none'; // Ensure pause overlay is hidden
-    }
-
-    function showGameInterface() {
-        if (splashScreen) splashScreen.style.display = 'none';
-        if (winScreen) winScreen.style.display = 'none'; // Hide win screen if visible
-        if (pauseOverlay) pauseOverlay.style.display = 'none'; // Hide pause overlay
-        if (mainGameInterface) {
-            mainGameInterface.style.display = 'flex'; 
-            mainGameInterface.style.flexDirection = 'column';
-            mainGameInterface.style.alignItems = 'center';
-        }
-    }
-
-    function showWinScreen(finalScore) {
-        if (mainGameInterface) mainGameInterface.style.display = 'none'; // Explicitly hide main game interface
-        if (pauseOverlay) pauseOverlay.style.display = 'none'; // Ensure pause overlay is hidden
-        if (isPaused) isPaused = false; // Reset pause state
-
-        // The new win screen does not display the final score
-        // if (finalScoreDisplay) finalScoreDisplay.textContent = finalScore;
-
-        if (winScreen) winScreen.style.display = 'flex'; // Show the new win screen
-    }
+    // --- UI View Functions (now primarily calling UIManager) ---
+    // showSplashScreen, showGameInterface, showWinScreen are now primarily handled by UIManager
+    // Game-specific logic within these flows (like resetting isPaused) remains here or in callers.
 
     // --- Pause, Resume, Exit Functions ---
     function pauseGame() {
         if (!isPaused) {
             isPaused = true;
             clearInterval(timerInterval); // Stop the timer
-            if (pauseOverlay) pauseOverlay.style.display = 'flex';
+            UIManager.showPauseOverlay(); // Call UIManager
             lockBoard = true; // Effectively locks board by overlay and state
         }
     }
@@ -344,7 +317,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function resumeGame() {
         if (isPaused) {
             isPaused = false;
-            if (pauseOverlay) pauseOverlay.style.display = 'none';
+            UIManager.hidePauseOverlay(); // Call UIManager
             // lockBoard will be false unless two cards are already flipped
             lockBoard = (firstFlippedCard && secondFlippedCard) ? true : false; 
             if (timeLeft > 0) { // Only restart timer if there's time left
@@ -356,10 +329,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // showWinScreen is called from disableMatchedCards, that's where game-specific logic needs to be
+    // before calling UIManager.showWinScreen
+
     function exitGame() {
         isPaused = false;
         clearInterval(timerInterval);
-        if (pauseOverlay) pauseOverlay.style.display = 'none';
+        UIManager.hidePauseOverlay(); // Call UIManager
 
         // Reset game state variables
         score = 0;
@@ -372,7 +348,7 @@ document.addEventListener('DOMContentLoaded', () => {
         lockBoard = false;
         if(gameBoard) gameBoard.innerHTML = ''; // Clear the game board
 
-        showSplashScreen();
+        UIManager.showSplashScreen(); // Call UIManager
     }
 
 
@@ -380,7 +356,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function initializeEventListeners() {
         if (startGameBtn) {
             startGameBtn.addEventListener('click', () => {
-                showGameInterface();
+                UIManager.showGameInterface(); // Call UIManager
                 initializeGame();
             });
         }
@@ -401,15 +377,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (playAgainBtn) {
             playAgainBtn.addEventListener('click', () => {
-                if (winScreen) winScreen.style.display = 'none';
-                showSplashScreen();
-            });
-        }
-
-        if (backToSplashBtn) {
-            backToSplashBtn.addEventListener('click', () => {
-                // Instead of play again (restarting game), go back to splash screen
-                showSplashScreen();
+                // UIManager.showWinScreen would have hidden other screens.
+                // UIManager.showSplashScreen will hide winScreen.
+                UIManager.showSplashScreen(); // Call UIManager
             });
         }
 
@@ -426,6 +396,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initial setup
     initializeEventListeners();
-    showSplashScreen();
+    UIManager.showSplashScreen(); // Call UIManager
     // initializeGame(); // Game starts via "Start Game" button
 });

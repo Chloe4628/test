@@ -1,0 +1,237 @@
+/* SHARED/COMMON UI STYLES */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+/* General body styling, can be overridden by game-specific CSS if needed */
+body {
+    font-family: 'Poppins', Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding-top: 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Default background */
+    color: #fff; /* Default text color */
+}
+
+/* Common game container for consistent layout across games */
+.game-container {
+    background-color: rgba(255, 255, 255, 0.1); /* Default, can be themed */
+    padding: 20px 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    text-align: center;
+    min-height: 450px; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    position: relative; /* For positioning overlays */
+}
+
+/* --- Common Screen Styles (Splash, Pause, Win) --- */
+.game-screen-overlay { /* Common class for full-area overlays */
+    display: none; /* Hidden by default, JS toggles to 'flex' */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000; 
+    border-radius: 15px; /* Match game-container rounding */
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box; 
+}
+
+/* Splash Screen Styles */
+#splash-screen {
+    /* Inherits .game-screen-overlay if class is added, or use these directly if ID is preferred for uniqueness */
+    /* Specific background/text colors can be game-specific or themed here */
+}
+#splash-screen h1 {
+    font-size: 2.8em; 
+    color: #fff; 
+    font-weight: 700;
+    text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+    margin-bottom: 15px; 
+}
+#splash-instructions {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+    color: rgba(255, 255, 255, 0.9);
+}
+#splash-decor { /* Can be generalized if other screens use similar decor */
+    font-size: 3em; 
+    margin-bottom: 20px;
+    animation: floatDecor 3s ease-in-out infinite;
+}
+@keyframes floatDecor {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* Pause Overlay Styles */
+#pause-overlay {
+    /* inherits .game-screen-overlay */
+    background-color: rgba(0, 0, 0, 0.85); 
+    color: #fff;
+}
+#pause-overlay h2 {
+    font-size: 2.8em;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    margin-bottom: 25px;
+}
+
+/* Win Screen Styles */
+#win-screen {
+    /* inherits .game-screen-overlay */
+    background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); 
+    color: #4A3F35; 
+}
+#win-screen h2 {
+    font-size: 2.8em;
+    font-weight: 700;
+    text-shadow: 1px 1px 2px rgba(255,255,255,0.5); 
+    margin-bottom: 15px;
+}
+#win-screen p {
+    font-size: 1.3em;
+    margin-bottom: 10px;
+}
+#final-score-display {
+    font-weight: bold;
+    font-size: 1.5em;
+    color: #d9534f; 
+}
+#win-decor { /* Can be generalized */
+    font-size: 3.5em;
+    margin: 20px 0;
+    animation: winDecorPulse 1.5s ease-in-out infinite;
+}
+@keyframes winDecorPulse {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.15); opacity: 1; }
+}
+
+/* --- Common Button Styles --- */
+.game-button { /* Base class for most buttons */
+    border: none;
+    padding: 12px 25px; 
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    border-radius: 8px; 
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    color: white; /* Default text color for buttons */
+}
+.game-button:hover {
+    transform: translateY(-2px);
+}
+.game-button:active {
+    transform: translateY(1px);
+}
+
+/* Larger action buttons (Start, Resume, Play Again) */
+.game-button-primary {
+    padding: 15px 35px;
+    font-size: 1.3em;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.25);
+}
+.game-button-primary.green {
+    background-color: #86e75a; 
+    color: #333;
+}
+.game-button-primary.green:hover {
+    background-color: #70c14f;
+}
+.game-button-primary.pink {
+    background-color: #ff758c; 
+    color: white;
+}
+.game-button-primary.pink:hover {
+    background-color: #ff5c77;
+}
+
+/* Smaller control buttons (Pause, Exit, Grid Selectors) */
+.game-button-secondary {
+    padding: 8px 15px;
+    font-size: 0.9em;
+    font-weight: 500;
+    border-radius: 6px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+}
+/* Specific secondary button colors would be in game-specific CSS or via modifier classes */
+.game-button-secondary.orange {
+    background-color: #f0ad4e;
+}
+.game-button-secondary.orange:hover {
+    background-color: #ec9c3d;
+}
+.game-button-secondary.grey {
+    background-color: #777;
+}
+.game-button-secondary.grey:hover {
+    background-color: #666;
+}
+.game-button-secondary.translucent {
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+.game-button-secondary.translucent:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+.game-button-secondary.translucent.active { /* For grid selector */
+    background-color: #ff758c; 
+    border-color: #ff758c;
+}
+
+.home-button { /* Specific style for the "Game World" home button */
+    /* Uses .game-button and .game-button-secondary structure */
+    background-color: #5bc0de; /* A distinct, friendly blue */
+    text-decoration: none; /* Ensure links styled as buttons don't have underlines */
+    display: inline-flex; /* Align icon and text nicely */
+    align-items: center;
+}
+.home-button:hover {
+    background-color: #31b0d5;
+}
+
+
+/* Game Controls container - common for in-game buttons */
+#game-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Align items vertically, especially if some are links and some buttons */
+    gap: 10px; /* Reduced gap slightly for more buttons */
+    margin-top: 20px;
+    width: 100%; 
+}
+
+/* Initial display state for main game area (common concept) */
+#main-game-interface {
+    display: none; /* Hidden by default, shown by JS */
+    width: 100%; 
+    flex-direction: column; 
+    align-items: center;   
+}
+
+/* Common responsive adjustments for overlays and typography */
+@media (max-width: 480px) {
+    .game-container { padding: 15px; margin: 10px; min-height: auto; }
+    #splash-screen h1, #win-screen h2, #pause-overlay h2 { font-size: 2.2em; }
+    #splash-instructions, #win-screen p { font-size: 1em; }
+    .game-button-primary, #start-game-btn, #resume-game-btn, #play-again-btn { font-size: 1.1em; padding: 12px 25px; }
+    #splash-decor, #win-decor { font-size: 2.5em; }
+    /* Game-specific responsive rules for buttons like restart, grid etc. should be in game's CSS */
+    #game-controls { flex-wrap: wrap; gap: 8px; margin-top: 15px; } /* Allow buttons to wrap on small screens */
+    .home-button { padding: 8px 12px; font-size: 0.8em; }
+}

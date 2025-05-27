@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tile-Matching Game</title>
+    <link rel="stylesheet" href="../shared/common-ui.css"> <!-- Link to shared CSS -->
+    <link rel="stylesheet" href="style.css"> <!-- Link to game-specific CSS -->
+</head>
+<body>
+    <div class="game-container">
+        <div id="splash-screen">
+            <div id="splash-decor">🎉🧠💡</div>
+            <h1>Emoji Match Master</h1>
+            <p id="splash-instructions">Match the pairs before time runs out!</p>
+            <button id="start-game-btn">Start Game</button>
+        </div>
+
+        <div id="main-game-interface">
+            <!-- Game title removed, splash screen has "Emoji Match Master" -->
+            
+            <div id="game-info">
+                <div id="score-container">
+                    Score: <span id="score">0</span>
+                </div>
+                <div id="timer-container">
+                    Time: <span id="timer">00:00</span>
+                </div>
+            </div>
+
+            <div id="grid-size-selector">
+                <button class="grid-size-btn active" data-grid="4x4">4x4 (Easy)</button>
+                <button class="grid-size-btn" data-grid="4x5">4x5 (Medium)</button>
+                <button class="grid-size-btn" data-grid="6x6">6x6 (Hard)</button>
+            </div>
+
+            <button id="restart-btn">Restart Game</button>
+            
+            <div id="game-board">
+                <!-- Game tiles will be added here by JavaScript -->
+                <p>Game board placeholder</p>
+            </div>
+
+            <div id="game-controls">
+                <button id="pause-game-btn">Pause</button>
+                <a href="../index.html" class="game-button home-button">🏠 Game World</a>
+                <button id="exit-game-btn">Exit Game</button>
+            </div>
+        </div>
+
+        <div id="pause-overlay">
+            <h2>Paused</h2>
+            <button id="resume-game-btn">Resume</button>
+        </div>
+
+        <div id="win-screen">
+            <div id="win-decor">🏆🎉✨</div>
+            <h2>Congratulations!</h2>
+            <p>You matched all the pairs!</p>
+            <p>Your Final Score: <span id="final-score-display">0</span></p>
+            <button id="play-again-btn">Play Again?</button>
+        </div>
+    </div>
+
+    <script src="../shared/ui-manager.js" defer></script>
+    <script src="script.js" defer></script> <!-- Also add defer to game-specific script -->
+</body>
+</html>
