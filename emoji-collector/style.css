@@ -1,0 +1,142 @@
+/* EMOJI COLLECT & DODGE - GAME-SPECIFIC STYLES */
+
+/* Body and .game-container are styled by shared/common-ui.css */
+
+/* --- Splash Screen Customizations --- */
+#splash-screen h1 {
+    /* Game-specific title color if needed */
+}
+#splash-instructions {
+    margin-bottom: 20px; /* Adjust spacing if needed */
+}
+
+#character-selector {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px; /* Space before start button */
+}
+
+.character-option {
+    font-size: 3em; /* Large emoji for character */
+    padding: 10px;
+    border: 3px solid transparent; /* For selection highlight */
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+    user-select: none;
+}
+
+.character-option:hover {
+    transform: scale(1.15);
+    border-color: rgba(255, 255, 255, 0.5); /* Light border on hover */
+}
+
+.character-option.selected-character {
+    border-color: #86e75a; /* Green border for selected */
+    transform: scale(1.2);
+    box-shadow: 0 0 15px rgba(134, 231, 90, 0.7);
+}
+
+#start-game-btn {
+    /* Uses .game-button.game-button-primary.green from shared CSS */
+    /* margin-top is already handled by shared CSS for this button type */
+}
+
+
+/* --- Main Game Interface --- */
+#main-game-interface {
+    /* display: none; is set by UIManager initially */
+    /* flex properties are set by UIManager when shown */
+    width: 100%;
+}
+
+#game-info-collector {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 400px; /* Or adjust to game area width */
+    margin: 0 auto 15px auto;
+    font-size: 1.3em;
+    font-weight: 600;
+    color: #fff;
+    padding: 10px 15px;
+    background-color: rgba(0,0,0,0.2);
+    border-radius: 8px;
+}
+#score-value, #timer-value {
+    color: #86e75a; /* Green for score */
+    min-width: 40px; /* Ensure space for numbers */
+    display: inline-block;
+    text-align: right;
+}
+#timer-value {
+    color: #f77272; /* Red for timer */
+}
+
+
+#game-area {
+    width: 100%;
+    max-width: 500px; /* Max width of the game area */
+    height: 400px; /* Fixed height, or use aspect ratio padding hack for responsive height */
+    background-color: rgba(0, 0, 0, 0.25); /* Darker play area */
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    position: relative; /* For absolute positioning of player and items */
+    overflow: hidden; /* Items disappear if they go out of bounds */
+    margin: 0 auto 20px auto; /* Center game area */
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.4);
+}
+
+.player-character {
+    position: absolute;
+    font-size: 2.5em; /* Emoji size for player */
+    transition: left 0.05s linear, top 0.05s linear; /* Smooth movement */
+    user-select: none;
+    /* bottom and left set by JS */
+}
+
+.collectible-item, .hazard-item {
+    position: absolute;
+    font-size: 2em; /* Emoji size for items */
+    user-select: none;
+    /* top and left set by JS */
+}
+
+.collectible-item {
+    /* Specific styling if needed, e.g., text shadow */
+}
+
+.hazard-item {
+    /* Specific styling if needed, e.g., slight red glow */
+    /* animation: pulseHazard 1s infinite alternate; */ /* Optional subtle animation */
+}
+
+/* @keyframes pulseHazard {
+    from { opacity: 0.8; transform: scale(1); }
+    to { opacity: 1; transform: scale(1.05); }
+} */
+
+
+/* Game Controls: #restart-game-btn, #pause-game-btn, .home-button, #exit-game-btn
+   are styled by shared/common-ui.css using their classes */
+
+/* Responsive adjustments for Collector Game */
+@media (max-width: 480px) {
+    #game-info-collector {
+        font-size: 1em;
+        padding: 8px 10px;
+        max-width: 90%;
+    }
+    #game-area {
+        height: 350px; /* Adjust height for smaller screens */
+        max-width: 100%;
+    }
+    .player-character {
+        font-size: 2em;
+    }
+    .collectible-item, .hazard-item {
+        font-size: 1.8em;
+    }
+    /* Button sizes are handled by common responsive styles */
+}

@@ -13,6 +13,12 @@
             <div id="splash-decor">🎉🧠💡</div>
             <h1>Emoji Match Master</h1>
             <p id="splash-instructions">Match the pairs before time runs out!</p>
+            <!-- Grid size selector moved into the splash screen -->
+            <div id="grid-size-selector">
+                <button class="grid-size-btn game-button game-button-secondary translucent active" data-grid="4x4">4x4 (Easy)</button>
+                <button class="grid-size-btn game-button game-button-secondary translucent" data-grid="4x5">4x5 (Medium)</button>
+                <button class="grid-size-btn game-button game-button-secondary translucent" data-grid="6x6">6x6 (Hard)</button>
+            </div>
             <button id="start-game-btn" class="game-button game-button-primary green">Start Game</button>
         </div>
 
@@ -28,11 +34,7 @@
                 </div>
             </div>
 
-            <div id="grid-size-selector">
-                <button class="grid-size-btn game-button game-button-secondary translucent active" data-grid="4x4">4x4 (Easy)</button>
-                <button class="grid-size-btn game-button game-button-secondary translucent" data-grid="4x5">4x5 (Medium)</button>
-                <button class="grid-size-btn game-button game-button-secondary translucent" data-grid="6x6">6x6 (Hard)</button>
-            </div>
+            <!-- Grid size selector MOVED to splash screen -->
 
             <button id="restart-btn" class="game-button pink">Restart Game</button>
             
@@ -48,16 +50,18 @@
             </div>
         </div>
 
-        <div id="pause-overlay"> <!-- Class .game-screen-overlay can be added here if defined for it -->
+        <div id="pause-overlay" class="game-screen-overlay">
             <h2>Paused</h2>
             <button id="resume-game-btn" class="game-button game-button-primary green">Resume</button>
         </div>
 
-        <div id="win-screen"> <!-- Class .game-screen-overlay can be added here -->
-            <div id="win-decor">🏆🎉✨</div>
-            <h2>Congratulations!</h2>
-            <p>You matched all the pairs!</p>
-            <p>Your Final Score: <span id="final-score-display">0</span></p>
+        <div id="win-screen" class="game-screen-overlay">
+            <div class="win-results-content">
+                <div id="win-decor">🏆🎉✨</div>
+                <h2 id="win-message-heading">Congratulations!</h2>
+                <p id="win-sub-message">You matched all the pairs!</p>
+                <p id="win-score-details">Your Final Score: <span id="final-score-display">0</span></p>
+            </div>
             <button id="play-again-btn" class="game-button game-button-primary pink">Play Again?</button>
         </div>
     </div>

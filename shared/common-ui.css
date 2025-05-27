@@ -51,25 +51,48 @@ body {
 
 /* Splash Screen Styles */
 #splash-screen {
-    /* Inherits .game-screen-overlay if class is added, or use these directly if ID is preferred for uniqueness */
-    /* Specific background/text colors can be game-specific or themed here */
+    /* This rule is for when JS sets display:flex; it already exists from a previous step.
+       Ensuring flex properties for vertical stacking and centering. */
+    display: flex; /* Default state when shown by JS */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Vertically centers content if screen is taller */
+    width: 100%;
+    height: 100%; 
+    text-align: center;
+    padding: 20px; /* Added padding for content */
+    box-sizing: border-box; /* Include padding in width/height */
+    border-radius: 15px; /* Match game-container if splash is direct child and fills it */
 }
 #splash-screen h1 {
     font-size: 2.8em; 
     color: #fff; 
     font-weight: 700;
     text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
-    margin-bottom: 20px; /* Increased spacing */
+    margin-top: 0; /* In case of other elements above */
+    margin-bottom: 20px; 
 }
 #splash-instructions {
     font-size: 1.2em;
-    margin-bottom: 35px; /* Increased spacing */
+    margin-bottom: 25px; /* Adjusted spacing */
     color: rgba(255, 255, 255, 0.9);
+    max-width: 80%; /* Prevent very long lines */
 }
-#splash-decor { /* Can be generalized if other screens use similar decor */
+#splash-decor { 
     font-size: 3em; 
-    margin-bottom: 25px; /* Increased spacing */
+    margin-bottom: 20px; /* Adjusted spacing */
     animation: floatDecor 3s ease-in-out infinite;
+}
+/* Style for game-specific options container if placed in splash screen */
+/* #grid-size-selector is already styled in game-specific CSS for EMM,
+   but common margin for it when in splash screen can be here. */
+#splash-screen > #grid-size-selector { /* For EMM, when it's inside splash */
+    margin-bottom: 25px;
+    width: 100%; /* Ensure it takes space in the flex column */
+    max-width: 350px; /* Limit width of the selector itself */
+}
+#start-game-btn { /* Ensure consistent margin for the start button */
+    margin-top: 15px; /* Space above the start button */
 }
 @keyframes floatDecor {
     0%, 100% { transform: translateY(0); }
@@ -78,9 +101,11 @@ body {
 
 /* Pause Overlay Styles */
 #pause-overlay {
-    /* inherits .game-screen-overlay */
+    /* Common overlay styles come from .game-screen-overlay class applied in HTML */
     background-color: rgba(0, 0, 0, 0.85); 
     color: #fff;
+    /* Ensure display:none is here if not relying on .game-screen-overlay for it initially and JS only toggles to flex */
+    display: none; 
 }
 #pause-overlay h2 {
     font-size: 2.8em;
@@ -90,31 +115,63 @@ body {
 
 /* Win Screen Styles */
 #win-screen {
-    /* inherits .game-screen-overlay */
+    /* Common overlay styles come from .game-screen-overlay class applied in HTML */
     background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); 
     color: #4A3F35; 
+    /* Ensure display:none is here if not relying on .game-screen-overlay for it initially and JS only toggles to flex */
+    display: none;
 }
-#win-screen h2 {
-    font-size: 2.8em;
+
+.win-results-content { /* Panel for win screen details */
+    background-color: rgba(255, 255, 255, 0.2); /* Subtle overlay on the gradient */
+    padding: 25px 30px; /* Adjusted padding */
+    border-radius: 20px; 
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08); /* Softer shadow */
+    max-width: 480px; /* Slightly narrower for better text lines */
+    width: calc(100% - 30px); 
+    margin-bottom: 30px; 
+    text-align: center;
+}
+
+#win-decor { 
+    font-size: 4em; 
+    margin: 0 0 20px 0; 
+    animation: winDecorPulse 1.5s ease-in-out infinite;
+    line-height: 1; /* Prevent extra spacing from large emoji */
+}
+
+#win-message-heading { 
+    font-size: 2.5em; 
     font-weight: 700;
-    text-shadow: 1px 1px 2px rgba(255,255,255,0.5); 
-    margin-bottom: 20px; /* Increased spacing */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1); /* Adjusted for dark text */
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: inherit; 
+    line-height: 1.2;
 }
-#win-screen p {
-    font-size: 1.3em;
-    margin-bottom: 15px; /* Increased spacing */
+
+#win-sub-message {
+    font-size: 1.1em; /* Slightly smaller */
+    margin-bottom: 15px; /* Adjusted spacing */
+    line-height: 1.5;
+    color: inherit; /* Should be slightly less prominent than heading */
+    opacity: 0.9;
 }
+
+#win-score-details { 
+    font-size: 1.2em; /* Adjusted size */
+    margin-bottom: 0; 
+    color: inherit;
+    opacity: 0.9;
+}
+
 #final-score-display {
     font-weight: bold;
-    font-size: 1.5em;
+    font-size: 1.4em; /* Relative to parent p's font-size */
     color: #d9534f; 
-    margin-bottom: 20px; /* Added spacing */
+    /* margin-bottom removed, handled by parent #win-score-details */
 }
-#win-decor { /* Can be generalized */
-    font-size: 3.5em;
-    margin: 25px 0; /* Increased spacing */
-    animation: winDecorPulse 1.5s ease-in-out infinite;
-}
+
 @keyframes winDecorPulse {
     0%, 100% { transform: scale(1); opacity: 0.8; }
     50% { transform: scale(1.15); opacity: 1; }
@@ -157,6 +214,7 @@ body {
 .game-button-primary.pink {
     background-color: #ff758c; 
     color: white;
+    margin-top: 30px; /* Ensure spacing from the results panel */
 }
 .game-button-primary.pink:hover {
     background-color: #ff5c77;
@@ -230,11 +288,14 @@ body {
 /* Common responsive adjustments for overlays and typography */
 @media (max-width: 480px) {
     .game-container { padding: 15px; margin: 10px; min-height: auto; }
-    #splash-screen h1, #win-screen h2, #pause-overlay h2 { font-size: 2.2em; }
-    #splash-instructions, #win-screen p { font-size: 1em; }
+    #splash-screen h1, #pause-overlay h2 { font-size: 2.2em; } 
+    #win-message-heading { font-size: 2.0em; } /* Specific responsive size for win message */
+    #splash-instructions, #win-sub-message, #win-score-details { font-size: 1em; }
     .game-button-primary, #start-game-btn, #resume-game-btn, #play-again-btn { font-size: 1.1em; padding: 12px 25px; }
-    #splash-decor, #win-decor { font-size: 2.5em; }
+    #splash-decor { font-size: 2.5em; }
+    #win-decor { font-size: 3em; } /* Adjusted responsive win decor */
     /* Game-specific responsive rules for buttons like restart, grid etc. should be in game's CSS */
     #game-controls { flex-wrap: wrap; gap: 10px; margin-top: 20px; } /* Allow buttons to wrap on small screens */
     .game-button-secondary, .home-button { padding: 8px 15px; font-size: 0.8em; }
+    .win-results-content { padding: 20px 25px; width: calc(100% - 20px); margin-bottom: 25px; }
 }

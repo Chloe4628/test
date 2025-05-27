@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emoji Collect & Dodge</title>
+    <link rel="stylesheet" href="../shared/common-ui.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <!-- Splash Screen with Character Selection -->
+        <div id="splash-screen">
+            <div id="splash-decor">🚀✨💀</div>
+            <h1>Emoji Collector! 🚀</h1>
+            <p id="splash-instructions">Choose your character, collect ✨ and dodge 💀!</p>
+            
+            <div id="character-selector">
+                <span class="character-option selected-character" data-char="🧑‍🚀">🧑‍🚀</span>
+                <span class="character-option" data-char="🦸">🦸</span>
+                <span class="character-option" data-char="😇">😇</span>
+                <span class="character-option" data-char="👦">👦</span>
+                <span class="character-option" data-char="👧">👧</span>
+            </div>
+            
+            <button id="start-game-btn" class="game-button game-button-primary green">Start with Selected Character</button>
+        </div>
+
+        <!-- Main Game Interface (Initially Hidden) -->
+        <div id="main-game-interface">
+            <div id="game-info-collector">
+                <span id="score-label">Score: </span><span id="score-value">0</span>
+                <span id="timer-label">Time: </span><span id="timer-value">60</span>
+            </div>
+            
+            <div id="game-area">
+                <!-- Player and items will be added here by JavaScript -->
+            </div>
+
+            <div id="game-controls">
+                <button id="restart-game-btn" class="game-button pink">Restart</button>
+                <button id="pause-game-btn" class="game-button game-button-secondary orange">Pause</button>
+                <a href="../index.html" class="game-button game-button-secondary home-button">🏠 Game World</a>
+                <button id="exit-game-btn" class="game-button game-button-secondary grey">Exit Game</button>
+            </div>
+        </div>
+
+        <!-- Pause Overlay (Initially Hidden) -->
+        <div id="pause-overlay" class="game-screen-overlay">
+            <h2>Paused</h2>
+            <button id="resume-game-btn" class="game-button game-button-primary green">Resume</button>
+        </div>
+
+        <!-- Win Screen / Game Over Screen (Initially Hidden) -->
+        <div id="win-screen" class="game-screen-overlay">
+            <div id="win-decor">🎉🏁🎈</div>
+            <h2 id="win-message-heading">Time's Up!</h2> 
+            <p id="win-sub-message">Here's how you did:</p>
+            <p id="win-score-details">Final Score: <span id="final-score-display">0</span></p>
+            <button id="play-again-btn" class="game-button game-button-primary pink">Play Again?</button>
+        </div>
+    </div>
+
+    <script src="../shared/ui-manager.js" defer></script>
+    <script src="script.js" defer></script>
+</body>
+</html>
