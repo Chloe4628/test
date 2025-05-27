@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const winScreen = document.getElementById('win-screen');
     const finalScoreDisplay = document.getElementById('final-score-display');
     const playAgainBtn = document.getElementById('play-again-btn');
+    const backToSplashBtn = document.getElementById('back-to-splash-btn');
 
 
     // --- Game State Variables ---
@@ -304,6 +305,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function showSplashScreen() {
         if (splashScreen) splashScreen.style.display = 'flex'; // Or 'block' if flex settings are in CSS
         if (mainGameInterface) mainGameInterface.style.display = 'none';
+        if (winScreen) winScreen.style.display = 'none'; // Ensure win screen is hidden
+        if (pauseOverlay) pauseOverlay.style.display = 'none'; // Ensure pause overlay is hidden
     }
 
     function showGameInterface() {
@@ -318,12 +321,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function showWinScreen(finalScore) {
-        if (mainGameInterface) mainGameInterface.style.display = 'none';
+        if (mainGameInterface) mainGameInterface.style.display = 'none'; // Explicitly hide main game interface
         if (pauseOverlay) pauseOverlay.style.display = 'none'; // Ensure pause overlay is hidden
         if (isPaused) isPaused = false; // Reset pause state
 
-        if (finalScoreDisplay) finalScoreDisplay.textContent = finalScore;
-        if (winScreen) winScreen.style.display = 'flex';
+        // The new win screen does not display the final score
+        // if (finalScoreDisplay) finalScoreDisplay.textContent = finalScore;
+
+        if (winScreen) winScreen.style.display = 'flex'; // Show the new win screen
     }
 
     // --- Pause, Resume, Exit Functions ---
@@ -397,6 +402,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (playAgainBtn) {
             playAgainBtn.addEventListener('click', () => {
                 if (winScreen) winScreen.style.display = 'none';
+                showSplashScreen();
+            });
+        }
+
+        if (backToSplashBtn) {
+            backToSplashBtn.addEventListener('click', () => {
+                // Instead of play again (restarting game), go back to splash screen
                 showSplashScreen();
             });
         }

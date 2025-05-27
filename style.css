@@ -5,27 +5,29 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center; /* Center vertically */
     min-height: 100vh;
     margin: 0;
-    padding-top: 20px; /* Adjusted from margin-top */
+    padding-top: 0; /* Remove or set to 0 to allow vertical centering */
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: #fff; /* Default text color for better contrast on gradient */
 }
 
 .game-container {
     background-color: rgba(255, 255, 255, 0.1);
-    padding: 20px 30px;
+    padding: 20px 40px; /* Keep the increased left/right padding */
     border-radius: 15px;
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
     border: 1px solid rgba(255, 255, 255, 0.18);
     text-align: center;
-    min-height: 450px; 
-    display: flex; 
-    flex-direction: column; 
-    justify-content: center; 
-    position: relative; 
+    min-height: 450px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    margin: auto; /* Keep margin: auto */
 }
 
 /* Splash Screen Styles */
@@ -349,72 +351,6 @@ body {
     transform: translateY(-2px);
 }
 
-/* Game Won Screen Styles */
-#win-screen {
-    display: none; 
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); 
-    color: #4A3F35; 
-    flex-direction: column; 
-    align-items: center;
-    justify-content: center;
-    z-index: 1000; 
-    border-radius: 15px; 
-    text-align: center;
-    padding: 20px;
-    box-sizing: border-box; 
-}
-
-#win-screen h2 {
-    font-size: 2.8em;
-    font-weight: 700;
-    text-shadow: 1px 1px 2px rgba(255,255,255,0.5); 
-    margin-bottom: 15px;
-}
-
-#win-screen p {
-    font-size: 1.3em;
-    margin-bottom: 10px;
-}
-
-#final-score-display {
-    font-weight: bold;
-    font-size: 1.5em;
-    color: #d9534f; 
-}
-
-#win-decor {
-    font-size: 3.5em;
-    margin: 20px 0;
-    animation: winDecorPulse 1.5s ease-in-out infinite;
-}
-
-@keyframes winDecorPulse {
-    0%, 100% { transform: scale(1); opacity: 0.8; }
-    50% { transform: scale(1.15); opacity: 1; }
-}
-
-#play-again-btn {
-    background-color: #ff758c; 
-    color: white;
-    border: none;
-    padding: 15px 35px;
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.3em;
-    font-weight: 600;
-    border-radius: 10px;
-    cursor: pointer;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.25);
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    margin-top: 20px;
-}
-
-#play-again-btn:hover {
-    background-color: #ff5c77; 
-    transform: translateY(-3px);
-}
-
 /* Responsive adjustments */
 @media (max-width: 480px) {
     body { padding-top: 10px; }
@@ -434,4 +370,71 @@ body {
     /* Game board and tile responsiveness would require JS changes for tile sizes or more complex CSS.
        The current fixed tile sizes will make larger boards potentially overflow on very small screens.
        This media query primarily handles UI elements around the board. */
+}
+
+/* New Win Screen Styles */
+#win-screen.game-screen {
+    display: none; /* Hidden by default */
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%); /* Lighter background */
+    color: #333; /* Darker text for light background */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    border-radius: 15px;
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+#win-screen .win-content {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#win-screen h2 {
+    font-size: 2.5em;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+#win-screen .win-icons {
+    font-size: 3em;
+    margin-bottom: 20px;
+}
+
+#win-screen #back-to-splash-btn {
+    background-color: #ff758c;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1em;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 15px;
+}
+
+#win-screen #back-to-splash-btn:hover {
+    background-color: #ff5c77;
+    transform: translateY(-2px);
+}
+
+/* Responsive adjustments for new win screen */
+@media (max-width: 480px) {
+    #win-screen h2 { font-size: 2em; }
+    #win-screen .win-icons { font-size: 2.5em; }
+    #win-screen #back-to-splash-btn { font-size: 1em; padding: 10px 20px; }
+    #win-screen .win-content { padding: 20px; }
 }
