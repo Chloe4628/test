@@ -123,53 +123,55 @@ body {
 }
 
 .win-results-content { /* Panel for win screen details */
-    background-color: rgba(255, 255, 255, 0.2); /* Subtle overlay on the gradient */
-    padding: 25px 30px; /* Adjusted padding */
+    background-color: rgba(255, 255, 255, 0.25); /* Slightly more visible panel */
+    padding: 30px 40px; /* Increased padding */
     border-radius: 20px; 
-    box-shadow: 0 6px 20px rgba(0,0,0,0.08); /* Softer shadow */
-    max-width: 480px; /* Slightly narrower for better text lines */
-    width: calc(100% - 30px); 
-    margin-bottom: 30px; 
-    text-align: center;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1); /* Enhanced shadow */
+    max-width: 550px; /* Increased max-width */
+    width: calc(100% - 40px); /* Ensure padding even on smaller container */
+    margin-bottom: 25px; /* Adjusted space before play-again button */
+    text-align: center; /* Ensure all text content inside is centered */
 }
 
 #win-decor { 
-    font-size: 4em; 
-    margin: 0 0 20px 0; 
+    font-size: 4.5em; /* Larger decor */
+    margin: 0 0 25px 0; /* Adjusted margin below decor */
     animation: winDecorPulse 1.5s ease-in-out infinite;
-    line-height: 1; /* Prevent extra spacing from large emoji */
+    line-height: 1; 
 }
 
 #win-message-heading { 
-    font-size: 2.5em; 
+    font-size: 2.7em; /* Increased font size */
     font-weight: 700;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.1); /* Adjusted for dark text */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1); 
     margin-top: 0;
-    margin-bottom: 15px;
+    margin-bottom: 20px; /* Increased spacing */
     color: inherit; 
-    line-height: 1.2;
+    line-height: 1.3; /* Improved line height */
+    text-align: center; /* Explicitly center */
 }
 
 #win-sub-message {
-    font-size: 1.1em; /* Slightly smaller */
-    margin-bottom: 15px; /* Adjusted spacing */
-    line-height: 1.5;
-    color: inherit; /* Should be slightly less prominent than heading */
+    font-size: 1.3em; /* Increased font size */
+    margin-bottom: 20px; /* Increased spacing */
+    line-height: 1.6; /* Improved line height */
+    color: inherit; 
     opacity: 0.9;
+    text-align: center; /* Explicitly center */
 }
 
 #win-score-details { 
-    font-size: 1.2em; /* Adjusted size */
-    margin-bottom: 0; 
+    font-size: 1.3em; /* Increased font size */
+    margin-bottom: 0; /* Fine as last text item in panel */
     color: inherit;
     opacity: 0.9;
+    text-align: center; /* Explicitly center */
 }
 
 #final-score-display {
     font-weight: bold;
-    font-size: 1.4em; /* Relative to parent p's font-size */
+    font-size: 1.5em; /* Increased font size */
     color: #d9534f; 
-    /* margin-bottom removed, handled by parent #win-score-details */
 }
 
 @keyframes winDecorPulse {
@@ -214,7 +216,7 @@ body {
 .game-button-primary.pink {
     background-color: #ff758c; 
     color: white;
-    margin-top: 30px; /* Ensure spacing from the results panel */
+    margin-top: 25px; /* Adjusted spacing from the results panel */
 }
 .game-button-primary.pink:hover {
     background-color: #ff5c77;
@@ -289,13 +291,13 @@ body {
 @media (max-width: 480px) {
     .game-container { padding: 15px; margin: 10px; min-height: auto; }
     #splash-screen h1, #pause-overlay h2 { font-size: 2.2em; } 
-    #win-message-heading { font-size: 2.0em; } /* Specific responsive size for win message */
-    #splash-instructions, #win-sub-message, #win-score-details { font-size: 1em; }
+    #win-message-heading { font-size: 2.1em; } /* Adjusted responsive win message heading */
+    #splash-instructions, #win-sub-message, #win-score-details { font-size: 1.05em; } /* Slightly larger base for small screens */
     .game-button-primary, #start-game-btn, #resume-game-btn, #play-again-btn { font-size: 1.1em; padding: 12px 25px; }
     #splash-decor { font-size: 2.5em; }
-    #win-decor { font-size: 3em; } /* Adjusted responsive win decor */
+    #win-decor { font-size: 3.5em; } /* Adjusted responsive win decor */
     /* Game-specific responsive rules for buttons like restart, grid etc. should be in game's CSS */
-    #game-controls { flex-wrap: wrap; gap: 10px; margin-top: 20px; } /* Allow buttons to wrap on small screens */
+    #game-controls { flex-wrap: wrap; gap: 10px; margin-top: 20px; } 
     .game-button-secondary, .home-button { padding: 8px 15px; font-size: 0.8em; }
-    .win-results-content { padding: 20px 25px; width: calc(100% - 20px); margin-bottom: 25px; }
+    .win-results-content { padding: 20px; width: calc(100% - 20px); margin-bottom: 20px; } /* Adjusted responsive panel */
 }
