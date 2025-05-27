@@ -59,16 +59,16 @@ body {
     color: #fff; 
     font-weight: 700;
     text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
-    margin-bottom: 15px; 
+    margin-bottom: 20px; /* Increased spacing */
 }
 #splash-instructions {
     font-size: 1.2em;
-    margin-bottom: 30px;
+    margin-bottom: 35px; /* Increased spacing */
     color: rgba(255, 255, 255, 0.9);
 }
 #splash-decor { /* Can be generalized if other screens use similar decor */
     font-size: 3em; 
-    margin-bottom: 20px;
+    margin-bottom: 25px; /* Increased spacing */
     animation: floatDecor 3s ease-in-out infinite;
 }
 @keyframes floatDecor {
@@ -85,7 +85,7 @@ body {
 #pause-overlay h2 {
     font-size: 2.8em;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-    margin-bottom: 25px;
+    margin-bottom: 30px; /* Increased spacing */
 }
 
 /* Win Screen Styles */
@@ -98,20 +98,21 @@ body {
     font-size: 2.8em;
     font-weight: 700;
     text-shadow: 1px 1px 2px rgba(255,255,255,0.5); 
-    margin-bottom: 15px;
+    margin-bottom: 20px; /* Increased spacing */
 }
 #win-screen p {
     font-size: 1.3em;
-    margin-bottom: 10px;
+    margin-bottom: 15px; /* Increased spacing */
 }
 #final-score-display {
     font-weight: bold;
     font-size: 1.5em;
     color: #d9534f; 
+    margin-bottom: 20px; /* Added spacing */
 }
 #win-decor { /* Can be generalized */
     font-size: 3.5em;
-    margin: 20px 0;
+    margin: 25px 0; /* Increased spacing */
     animation: winDecorPulse 1.5s ease-in-out infinite;
 }
 @keyframes winDecorPulse {
@@ -123,12 +124,12 @@ body {
 .game-button { /* Base class for most buttons */
     border: none;
     padding: 12px 25px; 
-    font-family: 'Poppins', sans-serif;
+    /* font-family is inherited from body */
     font-weight: 600;
-    border-radius: 8px; 
+    border-radius: 30px; /* More pill-shaped */
     cursor: pointer;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* Softer shadow */
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
     color: white; /* Default text color for buttons */
 }
 .game-button:hover {
@@ -141,9 +142,10 @@ body {
 /* Larger action buttons (Start, Resume, Play Again) */
 .game-button-primary {
     padding: 15px 35px;
-    font-size: 1.3em;
-    border-radius: 10px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.25);
+    font-size: 1.3em; /* Explicit font-size for primary buttons */
+    /* font-family is inherited */
+    /* border-radius inherited from .game-button or can be specific if needed e.g. 30px */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2); /* Adjusted shadow */
 }
 .game-button-primary.green {
     background-color: #86e75a; 
@@ -162,11 +164,12 @@ body {
 
 /* Smaller control buttons (Pause, Exit, Grid Selectors) */
 .game-button-secondary {
-    padding: 8px 15px;
-    font-size: 0.9em;
+    padding: 10px 20px; /* Slightly increased padding for secondary */
+    font-size: 0.9em; /* Explicit font-size for secondary buttons */
+    /* font-family is inherited */
     font-weight: 500;
-    border-radius: 6px;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    /* border-radius inherited from .game-button or can be specific e.g. 25px */
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15); /* Adjusted shadow */
 }
 /* Specific secondary button colors would be in game-specific CSS or via modifier classes */
 .game-button-secondary.orange {
@@ -211,8 +214,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center; /* Align items vertically, especially if some are links and some buttons */
-    gap: 10px; /* Reduced gap slightly for more buttons */
-    margin-top: 20px;
+    gap: 15px; /* Restored/standardized gap */
+    margin-top: 25px; /* Increased spacing */
     width: 100%; 
 }
 
@@ -232,6 +235,6 @@ body {
     .game-button-primary, #start-game-btn, #resume-game-btn, #play-again-btn { font-size: 1.1em; padding: 12px 25px; }
     #splash-decor, #win-decor { font-size: 2.5em; }
     /* Game-specific responsive rules for buttons like restart, grid etc. should be in game's CSS */
-    #game-controls { flex-wrap: wrap; gap: 8px; margin-top: 15px; } /* Allow buttons to wrap on small screens */
-    .home-button { padding: 8px 12px; font-size: 0.8em; }
+    #game-controls { flex-wrap: wrap; gap: 10px; margin-top: 20px; } /* Allow buttons to wrap on small screens */
+    .game-button-secondary, .home-button { padding: 8px 15px; font-size: 0.8em; }
 }

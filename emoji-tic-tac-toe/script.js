@@ -19,9 +19,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const finalScoreDisplay = document.getElementById('final-score-display'); // For TTT, score is N/A
 
     // Game Variables
-    const playerX = '❌'; // Player 1 Emoji
-    const playerO = '💖'; // Player 2 Emoji (Cute heart alternative)
-    let currentPlayer = playerX;
+    const PLAYER_SYMBOL = '❌';
+    const AI_SYMBOL = '💖';
+    let currentPlayer = PLAYER_SYMBOL; // Player always starts
     let boardState = Array(9).fill(null); // Represents the 3x3 board
     let gameActive = false;
     let isPaused = false; // Game-specific pause state
@@ -33,17 +33,16 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     function initializeGame() {
-        isPaused = false; // Reset pause state
-        UIManager.hidePauseOverlay(); // Ensure pause overlay is hidden
-        UIManager.showGameInterface(); // Show main game, hide others
+        isPaused = false; 
+        UIManager.hidePauseOverlay(); 
+        UIManager.showGameInterface(); 
 
-        currentPlayer = playerX;
+        currentPlayer = PLAYER_SYMBOL; // Player always starts
         boardState.fill(null);
         gameActive = true;
         if(finalScoreDisplay) finalScoreDisplay.textContent = "N/A";
 
-
-        if (gameStatusDisplay) gameStatusDisplay.textContent = `Player ${currentPlayer}'s Turn`;
+        if (gameStatusDisplay) gameStatusDisplay.textContent = `Your Turn (${PLAYER_SYMBOL})`;
         
         if (ticTacToeBoard) {
             ticTacToeBoard.innerHTML = ''; // Clear previous cells
@@ -63,37 +62,42 @@ document.addEventListener('DOMContentLoaded', () => {
         const clickedCell = event.target;
         const clickedCellIndex = parseInt(clickedCell.dataset.index);
 
-        if (boardState[clickedCellIndex] !== null) { // Cell already taken
+        if (boardState[clickedCellIndex] !== null || currentPlayer !== PLAYER_SYMBOL) { // Cell already taken or not player's turn
             return;
         }
 
-        boardState[clickedCellIndex] = currentPlayer;
-        clickedCell.textContent = currentPlayer;
+        boardState[clickedCellIndex] = PLAYER_SYMBOL;
+        clickedCell.textContent = PLAYER_SYMBOL;
         clickedCell.classList.add('occupied');
 
-        if (checkWinCondition()) {
-            endGame(false, currentPlayer);
-        } else if (boardState.every(cell => cell !== null)) { // All cells filled, it's a draw
+        if (checkWin(boardState, PLAYER_SYMBOL)) {
+            endGame(false, PLAYER_SYMBOL);
+        } else if (boardState.every(cell => cell !== null)) {
             endGame(true);
         } else {
-            switchPlayer();
+            currentPlayer = AI_SYMBOL;
+            if (gameStatusDisplay) gameStatusDisplay.textContent = `Computer's Turn (${AI_SYMBOL})`;
+            lockBoard = true; // Lock board during AI's turn deliberation
+            setTimeout(() => {
+                aiMove();
+                lockBoard = false; // Unlock after AI move, unless game ended
+            }, 500); // AI "thinking" delay
         }
     }
 
-    function switchPlayer() {
-        currentPlayer = (currentPlayer === playerX) ? playerO : playerX;
-        if (gameStatusDisplay) gameStatusDisplay.textContent = `Player ${currentPlayer}'s Turn`;
-    }
+    // switchPlayer function is removed as turn management is now explicit.
 
-    function checkWinCondition() {
+    function checkWin(currentBoard, symbol) {
         for (let i = 0; i < winningConditions.length; i++) {
             const [a, b, c] = winningConditions[i];
-            if (boardState[a] && boardState[a] === boardState[b] && boardState[a] === boardState[c]) {
-                highlightWinningCells([a,b,c]);
-                return true; // Win detected
+            if (currentBoard[a] === symbol && currentBoard[b] === symbol && currentBoard[c] === symbol) {
+                if (gameActive) { // Only highlight if it's a real win, not a hypothetical check
+                     highlightWinningCells([a,b,c]);
+                }
+                return true; 
             }
         }
-        return false; // No win
+        return false; 
     }
     
     function highlightWinningCells(winningIndexes) {
@@ -105,6 +109,86 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    function aiMove() {
+        if (!gameActive || currentPlayer !== AI_SYMBOL) return;
+
+        let move = -1;
+
+        // 1. Check for AI Win
+        for (let i = 0; i < 9; i++) {
+            if (boardState[i] === null) {
+                boardState[i] = AI_SYMBOL;
+                if (checkWin(boardState, AI_SYMBOL)) {
+                    move = i;
+                    boardState[i] = null; // Revert test move
+                    break;
+                }
+                boardState[i] = null; // Revert test move
+            }
+        }
+
+        // 2. Block Player Win
+        if (move === -1) {
+            for (let i = 0; i < 9; i++) {
+                if (boardState[i] === null) {
+                    boardState[i] = PLAYER_SYMBOL;
+                    if (checkWin(boardState, PLAYER_SYMBOL)) {
+                        move = i;
+                        boardState[i] = null; // Revert test move
+                        break;
+                    }
+                    boardState[i] = null; // Revert test move
+                }
+            }
+        }
+        
+        // 3. Take Center
+        if (move === -1 && boardState[4] === null) {
+            move = 4;
+        }
+
+        // 4. Take Corner (0, 2, 6, 8)
+        if (move === -1) {
+            const corners = [0, 2, 6, 8].filter(index => boardState[index] === null);
+            if (corners.length > 0) {
+                move = corners[Math.floor(Math.random() * corners.length)];
+            }
+        }
+
+        // 5. Take Side (1, 3, 5, 7)
+        if (move === -1) {
+            const sides = [1, 3, 5, 7].filter(index => boardState[index] === null);
+            if (sides.length > 0) {
+                move = sides[Math.floor(Math.random() * sides.length)];
+            }
+        }
+        
+        // Fallback: if somehow no strategic move, take first available (should not happen with above logic)
+        if (move === -1) {
+            move = boardState.findIndex(cell => cell === null);
+        }
+
+
+        if (move !== -1) {
+            boardState[move] = AI_SYMBOL;
+            const cell = ticTacToeBoard.querySelector(`.tic-tac-toe-cell[data-index='${move}']`);
+            if (cell) {
+                cell.textContent = AI_SYMBOL;
+                cell.classList.add('occupied');
+            }
+
+            if (checkWin(boardState, AI_SYMBOL)) {
+                endGame(false, AI_SYMBOL);
+            } else if (boardState.every(cellVal => cellVal !== null)) {
+                endGame(true);
+            } else {
+                currentPlayer = PLAYER_SYMBOL;
+                if (gameStatusDisplay) gameStatusDisplay.textContent = `Your Turn (${PLAYER_SYMBOL})`;
+            }
+        }
+         lockBoard = false; // Ensure board is unlocked if AI didn't end game
+    }
+
 
     function endGame(isDraw, winner = null) {
         gameActive = false;
@@ -112,9 +196,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (isDraw) {
             message = "It's a Draw! 🤝";
             if (gameStatusDisplay) gameStatusDisplay.textContent = "Draw Game!";
-        } else {
-            message = `Player ${winner} Wins! 🎉`;
-            if (gameStatusDisplay) gameStatusDisplay.textContent = `Player ${winner} Wins!`;
+        } else if (winner === PLAYER_SYMBOL) {
+            message = "You Win! 🥳";
+            if (gameStatusDisplay) gameStatusDisplay.textContent = "You Win!";
+        } else if (winner === AI_SYMBOL) {
+            message = "Computer Wins! 🤖";
+            if (gameStatusDisplay) gameStatusDisplay.textContent = "Computer Wins!";
         }
         if (winMessageElement) winMessageElement.textContent = message;
         

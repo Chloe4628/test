@@ -13,7 +13,7 @@
             <div id="splash-decor">🎉🧠💡</div>
             <h1>Emoji Match Master</h1>
             <p id="splash-instructions">Match the pairs before time runs out!</p>
-            <button id="start-game-btn">Start Game</button>
+            <button id="start-game-btn" class="game-button game-button-primary green">Start Game</button>
         </div>
 
         <div id="main-game-interface">
@@ -29,12 +29,12 @@
             </div>
 
             <div id="grid-size-selector">
-                <button class="grid-size-btn active" data-grid="4x4">4x4 (Easy)</button>
-                <button class="grid-size-btn" data-grid="4x5">4x5 (Medium)</button>
-                <button class="grid-size-btn" data-grid="6x6">6x6 (Hard)</button>
+                <button class="grid-size-btn game-button game-button-secondary translucent active" data-grid="4x4">4x4 (Easy)</button>
+                <button class="grid-size-btn game-button game-button-secondary translucent" data-grid="4x5">4x5 (Medium)</button>
+                <button class="grid-size-btn game-button game-button-secondary translucent" data-grid="6x6">6x6 (Hard)</button>
             </div>
 
-            <button id="restart-btn">Restart Game</button>
+            <button id="restart-btn" class="game-button pink">Restart Game</button>
             
             <div id="game-board">
                 <!-- Game tiles will be added here by JavaScript -->
@@ -42,23 +42,23 @@
             </div>
 
             <div id="game-controls">
-                <button id="pause-game-btn">Pause</button>
-                <a href="../index.html" class="game-button home-button">🏠 Game World</a>
-                <button id="exit-game-btn">Exit Game</button>
+                <button id="pause-game-btn" class="game-button game-button-secondary orange">Pause</button>
+                <a href="../index.html" class="game-button game-button-secondary home-button">🏠 Game World</a>
+                <button id="exit-game-btn" class="game-button game-button-secondary grey">Exit Game</button>
             </div>
         </div>
 
-        <div id="pause-overlay">
+        <div id="pause-overlay"> <!-- Class .game-screen-overlay can be added here if defined for it -->
             <h2>Paused</h2>
-            <button id="resume-game-btn">Resume</button>
+            <button id="resume-game-btn" class="game-button game-button-primary green">Resume</button>
         </div>
 
-        <div id="win-screen">
+        <div id="win-screen"> <!-- Class .game-screen-overlay can be added here -->
             <div id="win-decor">🏆🎉✨</div>
             <h2>Congratulations!</h2>
             <p>You matched all the pairs!</p>
             <p>Your Final Score: <span id="final-score-display">0</span></p>
-            <button id="play-again-btn">Play Again?</button>
+            <button id="play-again-btn" class="game-button game-button-primary pink">Play Again?</button>
         </div>
     </div>
 

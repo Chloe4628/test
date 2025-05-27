@@ -18,42 +18,66 @@
             box-sizing: border-box;
         }
         .hub-container {
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 30px 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            background-color: rgba(255, 255, 255, 0.95); /* Slightly more opaque */
+            padding: 40px 50px; /* Increased padding */
+            border-radius: 25px; /* Softer radius */
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1); /* Softer shadow */
             text-align: center;
             width: 100%;
-            max-width: 600px;
+            max-width: 700px; /* Slightly wider */
         }
         h1 {
-            font-size: 2.8em;
-            color: #ff758c; /* Playful pink */
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
+            font-size: 3em; /* Slightly larger */
+            color: #f06292; /* Adjusted pink */
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.15);
+            margin-bottom: 40px; /* More space */
         }
         nav ul {
             list-style: none;
             padding: 0;
+            display: flex;
+            flex-direction: column; /* Stack game cards */
+            gap: 25px; /* Space between game cards */
         }
-        nav li {
-            margin-bottom: 15px;
+        nav li { /* Game card style */
+            background-color: #ffffff;
+            border-radius: 15px;
+            padding: 25px 30px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: left; /* Align content within card to left */
         }
-        nav a {
-            display: inline-block;
-            background-color: #86e75a; /* Bright green */
+        nav li:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
+        }
+        nav li h3 { /* Game title within card */
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.6em;
             color: #333;
-            padding: 12px 25px;
-            border-radius: 10px;
+        }
+        nav li p { /* Game description within card */
+            font-size: 1em;
+            color: #555;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        nav a { /* Play button style */
+            display: inline-block;
+            background-image: linear-gradient(45deg, #ff758c, #ff7eb3); /* Pink gradient */
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px; /* Pill shape */
             text-decoration: none;
-            font-size: 1.2em;
+            font-size: 1.1em;
             font-weight: 600;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: transform 0.2s ease, background-color 0.2s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transition: transform 0.2s ease, background-image 0.3s ease;
         }
         nav a:hover {
-            background-color: #70c14f; /* Darker green */
-            transform: translateY(-2px) scale(1.05);
+            transform: translateY(-2px) scale(1.03);
+            background-image: linear-gradient(45deg, #ff5c77, #ff6aa3); /* Darker pink gradient */
         }
         footer {
             margin-top: 40px;
@@ -67,8 +91,16 @@
         <h1>🎉 Welcome to Jules's Game World! 🎮</h1>
         <nav>
             <ul>
-                <li><a href="emoji-match-master/game.html">🚀 Emoji Match Master ✨</a></li>
-                <li><a href="emoji-tic-tac-toe/game.html">💖 Emoji Tic-Tac-Toe ❌</a></li>
+                <li>
+                    <h3>🚀 Emoji Match Master ✨</h3>
+                    <p>Test your memory! Match pairs of cute emojis before the timer runs out. Features multiple grid sizes and fun themes!</p>
+                    <a href="emoji-match-master/game.html">Play Now!</a>
+                </li>
+                <li>
+                    <h3>💖 Emoji Tic-Tac-Toe ❌</h3>
+                    <p>A classic game with a fun emoji twist! Can you beat the computer in this strategic battle of X's and O's (or rather, hearts)?</p>
+                    <a href="emoji-tic-tac-toe/game.html">Play Now!</a>
+                </li>
                 <!-- More games can be added here -->
             </ul>
         </nav>
