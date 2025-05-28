@@ -5,6 +5,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // If UIManager is still undefined, errors will naturally occur and be console visible.
 
     const UIManager = window.UIManager;
+    if (!UIManager) {
+        console.error("CRITICAL: UIManager object not found after DOMContentLoaded. Snake game cannot start properly.");
+        // Optionally, display a message to the user on the page itself
+        const gameContainer = document.getElementById('snake-game-container');
+        if (gameContainer) {
+            gameContainer.innerHTML = '<p style="color:red; text-align:center; font-size:1.2em;">CRITICAL ERROR: UI Manager failed. Cannot start game. Please check console.</p>';
+        }
+        return; // Stop further script execution for the game
+    }
+    console.log("UIManager found:", UIManager);
 
     // --- DOM Elements ---
     const splashScreen = document.getElementById('splash-screen');
@@ -60,8 +70,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Game Initialization ---
     function initializeGame() {
-        snake = [];
-        const startX = Math.floor(TILE_COUNT_X / 2);
+        console.log("Attempting to initialize game...");
+        if (!UIManager) {
+            console.error("UIManager not available within initializeGame. This should not happen if initial check passed.");
+            return; 
+        }
+        try {
+            snake = [];
+            const startX = Math.floor(TILE_COUNT_X / 2);
         const startY = Math.floor(TILE_COUNT_Y / 2);
         for (let i = 0; i < INITIAL_SNAKE_LENGTH; i++) {
             snake.push({ x: startX - i, y: startY, color: SNAKE_BODY_EMOJIS[i % SNAKE_BODY_EMOJIS.length] });
@@ -87,11 +103,25 @@ document.addEventListener('DOMContentLoaded', () => {
         startGameLoop();
         startTimer();
 
-        UIManager.hidePauseOverlay(); // Hide pause overlay if it was somehow active
-        if (gameOverScreen) gameOverScreen.style.display = 'none'; // Ensure game over is hidden
-        if (splashScreen) splashScreen.style.display = 'none'; // Ensure splash is hidden
-        UIManager.showGameInterface(); // Shows mainGameInterface
-        drawGame(); // Initial draw
+            UIManager.hidePauseOverlay();
+            console.log("Pause overlay hidden (attempted).");
+            if (gameOverScreen) gameOverScreen.style.display = 'none';
+            console.log("Game over screen hidden (attempted).");
+            if (splashScreen) splashScreen.style.display = 'none';
+            console.log("Splash screen hidden (attempted).");
+            UIManager.showGameInterface();
+            console.log("Show game interface called.");
+            drawGame(); 
+            console.log("Initial game draw complete.");
+
+        } catch (error) {
+            console.error("Error during initializeGame:", error);
+            // Optionally, display an error to the user on the page
+            const gameContainer = document.getElementById('snake-game-container');
+            if (gameContainer) {
+                 gameContainer.innerHTML = `<p style="color:red; text-align:center; font-size:1.2em;">Error starting game: ${error.message}. Check console.</p>`;
+            }
+        }
     }
 
     // --- Drawing Functions ---
@@ -290,7 +320,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
-    startGameBtn.addEventListener('click', initializeGame);
+    if (startGameBtn) {
+        console.log("Start game button found, adding listener.");
+        startGameBtn.addEventListener('click', initializeGame);
+    } else {
+        console.error("Start game button (start-game-btn) not found in DOM!");
+    }
     pauseGameBtn.addEventListener('click', togglePause);
     resumeGameBtn.addEventListener('click', togglePause);
 

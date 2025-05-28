@@ -7,10 +7,7 @@
 #splash-screen h1 {
     /* Game-specific title color if needed, e.g., color: #4CAF50; */
 }
-#splash-instructions {
-    margin-bottom: 20px; /* Adjust spacing if needed */
-    max-width: 90%; /* Ensure instructions wrap nicely */
-}
+/* #splash-instructions specific styling removed, will rely on shared/common-ui.css */
 #splash-decor {
     /* Specific styling or animation for the snake decor on splash if desired */
 }
