@@ -49,6 +49,8 @@ body {
     box-sizing: border-box; 
 }
 
+/* Win screen styles are now managed in style.css */
+
 /* Splash Screen Styles */
 #splash-screen {
     /* This rule is for when JS sets display:flex; it already exists from a previous step.
@@ -113,71 +115,22 @@ body {
     margin-bottom: 30px; /* Increased spacing */
 }
 
-/* Win Screen Styles */
-#win-screen {
-    /* Common overlay styles come from .game-screen-overlay class applied in HTML */
-    background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); 
-    color: #4A3F35; 
-    /* Ensure display:none is here if not relying on .game-screen-overlay for it initially and JS only toggles to flex */
-    display: none;
-}
+/* Win Screen Styles - Elegant & Spacious Design */
+/* #win-screen 样式已移除 */
 
-.win-results-content { /* Panel for win screen details */
-    background-color: rgba(255, 255, 255, 0.25); /* Slightly more visible panel */
-    padding: 30px 40px; /* Increased padding */
-    border-radius: 20px; 
-    box-shadow: 0 8px 25px rgba(0,0,0,0.1); /* Enhanced shadow */
-    max-width: 550px; /* Increased max-width */
-    width: calc(100% - 40px); /* Ensure padding even on smaller container */
-    margin-bottom: 25px; /* Adjusted space before play-again button */
-    text-align: center; /* Ensure all text content inside is centered */
-}
+/* .win-results-content 样式已移除 */
 
-#win-decor { 
-    font-size: 4.5em; /* Larger decor */
-    margin: 0 0 25px 0; /* Adjusted margin below decor */
-    animation: winDecorPulse 1.5s ease-in-out infinite;
-    line-height: 1; 
-}
+/* Elegant corner decorations for .win-results-content were here, removed as .win-results-content is removed */
 
-#win-message-heading { 
-    font-size: 2.7em; /* Increased font size */
-    font-weight: 700;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.1); 
-    margin-top: 0;
-    margin-bottom: 20px; /* Increased spacing */
-    color: inherit; 
-    line-height: 1.3; /* Improved line height */
-    text-align: center; /* Explicitly center */
-}
+/* #win-decor styles were here, removed as #win-decor is part of win-screen */
 
-#win-sub-message {
-    font-size: 1.3em; /* Increased font size */
-    margin-bottom: 20px; /* Increased spacing */
-    line-height: 1.6; /* Improved line height */
-    color: inherit; 
-    opacity: 0.9;
-    text-align: center; /* Explicitly center */
-}
+/* @keyframes gentleFloat was here, removed as it was used by #win-decor */
 
-#win-score-details { 
-    font-size: 1.3em; /* Increased font size */
-    margin-bottom: 0; /* Fine as last text item in panel */
-    color: inherit;
-    opacity: 0.9;
-    text-align: center; /* Explicitly center */
-}
-
-#final-score-display {
-    font-weight: bold;
-    font-size: 1.5em; /* Increased font size */
-    color: #d9534f; 
-}
-
-@keyframes winDecorPulse {
-    0%, 100% { transform: scale(1); opacity: 0.8; }
-    50% { transform: scale(1.15); opacity: 1; }
-}
+/* #win-message-heading styles were here, removed */
+/* #win-sub-message styles were here, removed */
+/* #win-score-details styles were here, removed */
+/* #final-score-display (within #win-score-details) styles were here, removed */
+/* #play-again-btn (win screen version) styles were here, removed */
 
 /* --- Common Button Styles --- */
 .game-button { /* Base class for most buttons */
@@ -288,16 +241,103 @@ body {
 }
 
 /* Common responsive adjustments for overlays and typography */
+@media (max-width: 768px) {
+    /* #win-screen 样式已移除 */
+        padding: 30px 20px;
+    }
+    
+    /* .win-results-content 样式已移除 */
+        padding: 60px 50px;
+        max-width: 90%;
+        width: 90%;
+        margin: 0 auto;
+    }
+    
+    .win-results-content::before,
+    .win-results-content::after {
+        width: 40px;
+        height: 40px;
+        border-width: 2px;
+    }
+    
+    .win-results-content::before {
+        top: -20px;
+        left: -20px;
+    }
+    
+    .win-results-content::after {
+        bottom: -20px;
+        right: -20px;
+    }
+    
+    #win-decor {
+        font-size: 4.5em;
+        margin: 0 0 30px 0;
+    }
+    
+    #win-message-heading {
+        font-size: 2.8em;
+        margin: 0 0 25px 0;
+    }
+    
+    #win-sub-message {
+        font-size: 1.4em;
+        margin: 0 0 35px 0;
+    }
+    
+    #win-score-details {
+        padding: 30px 35px;
+        font-size: 1.5em;
+        margin: 30px 0 0 0;
+    }
+    
+    #win-score-details::before {
+        font-size: 1em;
+        padding: 8px 12px;
+        top: -12px;
+    }
+    
+    #final-score-display {
+        font-size: 2em;
+        margin-top: 12px;
+    }
+    
+    .win-results-content + .game-button-primary {
+        padding: 15px 35px;
+        font-size: 1.2em;
+    }
+    
+    #splash-instructions {
+        font-size: 1.1em;
+    }
+    
+    #game-controls {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    #main-game-interface {
+        padding: 10px;
+    }
+}
+
 @media (max-width: 480px) {
     .game-container { padding: 15px; margin: 10px; min-height: auto; }
     #splash-screen h1, #pause-overlay h2 { font-size: 2.2em; } 
-    #win-message-heading { font-size: 2.1em; } /* Adjusted responsive win message heading */
-    #splash-instructions, #win-sub-message, #win-score-details { font-size: 1.05em; } /* Slightly larger base for small screens */
+    #win-message-heading { font-size: 2.4em; } /* Adjusted responsive win message heading */
+    #splash-instructions, #win-sub-message, #win-score-details { font-size: 1.2em; } /* Larger base for small screens */
     .game-button-primary, #start-game-btn, #resume-game-btn, #play-again-btn { font-size: 1.1em; padding: 12px 25px; }
     #splash-decor { font-size: 2.5em; }
-    #win-decor { font-size: 3.5em; } /* Adjusted responsive win decor */
+    #win-decor { font-size: 4em; } /* Adjusted responsive win decor */
     /* Game-specific responsive rules for buttons like restart, grid etc. should be in game's CSS */
     #game-controls { flex-wrap: wrap; gap: 10px; margin-top: 20px; } 
     .game-button-secondary, .home-button { padding: 8px 15px; font-size: 0.8em; }
-    .win-results-content { padding: 20px; width: calc(100% - 20px); margin-bottom: 20px; } /* Adjusted responsive panel */
+    /* .win-results-content 样式已移除 */ 
+        padding: 30px 25px; /* More generous responsive padding */
+        width: calc(100% - 20px); 
+        margin-bottom: 25px;
+        max-width: 90%; /* Ensure it fits well on small screens */
+    }
+    #final-score-display { font-size: 1.6em; } /* Responsive score display */
+    #win-score-details { padding: 15px; font-size: 1.3em; } /* Responsive score details */
 }

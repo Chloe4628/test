@@ -2,11 +2,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // DOM Elements from shared UIManager context (or queried directly if needed)
     const splashScreen = document.getElementById('splash-screen');
     const mainGameInterface = document.getElementById('main-game-interface');
-    const winScreen = document.getElementById('win-screen');
+    // const winScreen = document.getElementById('win-screen'); // Removed
     const pauseOverlay = document.getElementById('pause-overlay');
     
     const startGameBtn = document.getElementById('start-game-btn');
-    const playAgainBtn = document.getElementById('play-again-btn');
+    // const playAgainBtn = document.getElementById('play-again-btn'); // Removed
     const resumeGameBtn = document.getElementById('resume-game-btn');
 
     // Game-specific DOM Elements
@@ -15,8 +15,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const restartGameBtn = document.getElementById('restart-game-btn');
     const pauseGameBtn = document.getElementById('pause-game-btn');
     const exitGameBtn = document.getElementById('exit-game-btn');
-    const winMessageElement = document.querySelector('#win-screen h2'); // For "Player X Wins!" or "It's a Draw!"
-    const finalScoreDisplay = document.getElementById('final-score-display'); // For TTT, score is N/A
+    // const winMessageElement = document.querySelector('#win-screen h2'); // Removed
+    // const finalScoreDisplay = document.getElementById('final-score-display'); // Removed, score not applicable / handled by alert
 
     // Game Variables
     const PLAYER_SYMBOL = '❌';
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
         currentPlayer = PLAYER_SYMBOL; // Player always starts
         boardState.fill(null);
         gameActive = true;
-        if(finalScoreDisplay) finalScoreDisplay.textContent = "N/A";
+        // if(finalScoreDisplay) finalScoreDisplay.textContent = "N/A"; // Score not applicable / handled by alert
 
         if (gameStatusDisplay) gameStatusDisplay.textContent = `Your Turn (${PLAYER_SYMBOL})`;
         
@@ -203,12 +203,13 @@ document.addEventListener('DOMContentLoaded', () => {
             message = "Computer Wins! 🤖";
             if (gameStatusDisplay) gameStatusDisplay.textContent = "Computer Wins!";
         }
-        if (winMessageElement) winMessageElement.textContent = message;
+        // if (winMessageElement) winMessageElement.textContent = message; // Removed
         
         // Use UIManager to show the win screen
         // Score isn't really applicable to Tic-Tac-Toe in this context
         setTimeout(() => { // Delay to allow win animation to be seen
-            UIManager.showWinScreen("N/A"); // Explicitly pass "N/A" for score
+            alert("游戏结束！ " + message + "\n点击确定返回主页面。");
+    window.location.href = "../index.html";
         }, 500); // Short delay for win highlight
     }
 
@@ -248,12 +249,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (restartGameBtn) {
             restartGameBtn.addEventListener('click', initializeGame);
         }
-        if (playAgainBtn) {
-            playAgainBtn.addEventListener('click', () => {
-                UIManager.showSplashScreen(); 
-                // Game will re-initialize when "Start Game" is clicked from splash
-            });
-        }
+
         if (pauseGameBtn) {
             pauseGameBtn.addEventListener('click', handlePauseGame);
         }

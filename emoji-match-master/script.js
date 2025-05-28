@@ -16,11 +16,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const resumeGameBtn = document.getElementById('resume-game-btn');
     const exitGameBtn = document.getElementById('exit-game-btn');
 
-    // Win Screen elements
-    const winScreen = document.getElementById('win-screen');
-    const finalScoreDisplay = document.getElementById('final-score-display');
-    const playAgainBtn = document.getElementById('play-again-btn');
-
 
     // --- Game State Variables ---
     let isPaused = false;
@@ -170,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
         firstFlippedCard.removeEventListener('click', handleTileClick);
         secondFlippedCard.removeEventListener('click', handleTileClick);
 
-        updateScore(10);
+        // updateScore(10); // 移除匹配得分的逻辑
         matchedPairs++;
 
         // Remove the animation class after it finishes to ensure clean state
@@ -191,7 +186,21 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Delay showing win screen slightly to allow final match animation to be perceived
             setTimeout(() => {
-                showWinScreen(score);
+                const initialTime = 60; // Assuming initial time is 60 seconds as per current timeLeft initialization
+                const timeElapsed = initialTime - timeLeft;
+                let finalScore = 0;
+
+                if (timeElapsed <= 30) {
+                    finalScore = 100;
+                } else if (timeElapsed <= 45) {
+                    finalScore = 50;
+                } else if (timeElapsed <= 60) {
+                    finalScore = 25;
+                } 
+                // else finalScore remains 0 if timeElapsed > 60 (超时)
+
+                alert(`游戏结束！\n总得分: ${finalScore}\n用时: ${timeElapsed}秒\n\n点击确定返回主页面。`);
+                window.location.href = "../index.html";
             }, 700); // Matches the alert delay previously used
         } else {
              // Only reset board state if game is not won yet
@@ -375,13 +384,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        if (playAgainBtn) {
-            playAgainBtn.addEventListener('click', () => {
-                // UIManager.showWinScreen would have hidden other screens.
-                // UIManager.showSplashScreen will hide winScreen.
-                UIManager.showSplashScreen(); // Call UIManager
-            });
-        }
+
 
         if (pauseGameBtn) {
             pauseGameBtn.addEventListener('click', pauseGame);

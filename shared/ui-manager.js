@@ -9,23 +9,23 @@ const UIManager = {
     showSplashScreen: function() {
         const splashScreen = this._getElem('splash-screen');
         const mainGameInterface = this._getElem('main-game-interface');
-        const winScreen = this._getElem('win-screen'); // Make sure to hide win screen too
+        // const winScreen = this._getElem('win-screen'); // Make sure to hide win screen too
         const pauseOverlay = this._getElem('pause-overlay'); // And pause overlay
 
         if (splashScreen) splashScreen.style.display = 'flex';
         if (mainGameInterface) mainGameInterface.style.display = 'none';
-        if (winScreen) winScreen.style.display = 'none';
+        // if (winScreen) winScreen.style.display = 'none'; // winScreen has been removed
         if (pauseOverlay) pauseOverlay.style.display = 'none';
     },
 
     showGameInterface: function() {
         const splashScreen = this._getElem('splash-screen');
         const mainGameInterface = this._getElem('main-game-interface');
-        const winScreen = this._getElem('win-screen');
+        // const winScreen = this._getElem('win-screen');
         const pauseOverlay = this._getElem('pause-overlay');
 
         if (splashScreen) splashScreen.style.display = 'none';
-        if (winScreen) winScreen.style.display = 'none';
+        // if (winScreen) winScreen.style.display = 'none'; // winScreen has been removed
         if (pauseOverlay) pauseOverlay.style.display = 'none';
         
         if (mainGameInterface) {
@@ -35,19 +35,19 @@ const UIManager = {
         }
     },
 
-    showWinScreen: function(finalScore) {
-        const mainGameInterface = this._getElem('main-game-interface');
-        const winScreen = this._getElem('win-screen');
-        const finalScoreDisplay = this._getElem('final-score-display');
-        const pauseOverlay = this._getElem('pause-overlay');
-
-        if (mainGameInterface) mainGameInterface.style.display = 'none';
-        if (pauseOverlay) pauseOverlay.style.display = 'none';
-        // Game-specific logic like 'isPaused = false' should remain in game script or be passed via callback
-
-        if (finalScoreDisplay) finalScoreDisplay.textContent = finalScore;
-        if (winScreen) winScreen.style.display = 'flex';
-    },
+    // showWinScreen 已移除
+    //    const mainGameInterface = this._getElem('main-game-interface');
+    //    // const winScreen = this._getElem('win-screen');
+    //    const finalScoreDisplay = this._getElem('final-score-display');
+    //    const pauseOverlay = this._getElem('pause-overlay');
+    //
+    //    if (mainGameInterface) mainGameInterface.style.display = 'none';
+    //    if (pauseOverlay) pauseOverlay.style.display = 'none';
+    //    // Game-specific logic like 'isPaused = false' should remain in game script or be passed via callback
+    //
+    //    if (finalScoreDisplay) finalScoreDisplay.textContent = finalScore;
+    //    if (winScreen) winScreen.style.display = 'flex';
+    // },
 
     showPauseOverlay: function() {
         const pauseOverlay = this._getElem('pause-overlay');

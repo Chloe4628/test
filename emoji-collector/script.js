@@ -15,11 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const exitGameBtn = document.getElementById('exit-game-btn');
     const playAgainBtn = document.getElementById('play-again-btn');
 
-    // Screens (from UIManager context)
-    const winMessageHeading = document.getElementById('win-message-heading');
-    const winSubMessage = document.getElementById('win-sub-message'); // Assuming this ID exists for sub-message
-    const finalScoreDisplay = document.getElementById('final-score-display');
-
 
     // --- Game Variables ---
     let selectedCharacter = '🧑‍🚀'; // Default character
@@ -220,9 +215,9 @@ document.addEventListener('DOMContentLoaded', () => {
         UIManager.hidePauseOverlay();
         if (gameInterval) clearInterval(gameInterval);
         
-        if (winMessageHeading) winMessageHeading.textContent = "Time's Up!";
-        if (winSubMessage) winSubMessage.textContent = "Here's how you did:";
-        UIManager.showWinScreen(score); // UIManager will update finalScoreDisplay
+
+        alert("游戏结束！得分：" + score + "\n点击确定返回主页面。");
+    window.location.href = "../index.html";
     }
 
     // --- Pause, Resume, Exit Logic ---
@@ -261,11 +256,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (restartGameBtn) {
             restartGameBtn.addEventListener('click', initializeGame);
         }
-        if (playAgainBtn) {
-            playAgainBtn.addEventListener('click', () => {
-                UIManager.showSplashScreen();
-            });
-        }
+
         if (pauseGameBtn) {
             pauseGameBtn.addEventListener('click', handlePauseGame);
         }
