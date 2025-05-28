@@ -1,15 +1,10 @@
 // SNAKE ADVENTURE - GAME-SPECIFIC SCRIPT
 
 document.addEventListener('DOMContentLoaded', () => {
+    // UIManager check removed as defer should handle load order.
+    // If UIManager is still undefined, errors will naturally occur and be console visible.
+
     const UIManager = window.UIManager;
-    if (!UIManager) {
-        console.error("UIManager is not loaded. Ensure shared/UIManager.js is included and loaded before this script.");
-        const gameContainer = document.getElementById('snake-game-container');
-        if (gameContainer) {
-            gameContainer.innerHTML = '<p style="color:red; text-align:center; font-size:1.2em;">Error: Game UI Manager failed to load. Please try refreshing the page.</p>';
-        }
-        return;
-    }
 
     // --- DOM Elements ---
     const splashScreen = document.getElementById('splash-screen');
@@ -92,8 +87,10 @@ document.addEventListener('DOMContentLoaded', () => {
         startGameLoop();
         startTimer();
 
-        UIManager.hideAllOverlays(mainGameInterface); // Ensure only main game is shown
-        UIManager.showScreen('game', mainGameInterface, splashScreen, pauseOverlay, gameOverScreen);
+        UIManager.hidePauseOverlay(); // Hide pause overlay if it was somehow active
+        if (gameOverScreen) gameOverScreen.style.display = 'none'; // Ensure game over is hidden
+        if (splashScreen) splashScreen.style.display = 'none'; // Ensure splash is hidden
+        UIManager.showGameInterface(); // Shows mainGameInterface
         drawGame(); // Initial draw
     }
 
@@ -232,12 +229,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Game Over Logic ---
     function gameOver() {
         gameRunning = false;
-        stopTimer(); // Also stops gameInterval implicitly as gameLoop checks gameRunning
+        stopTimer(); 
         clearInterval(gameIntervalId); 
         
         finalScoreDisplay.textContent = score;
-        UIManager.showScreen('gameOver', mainGameInterface, splashScreen, pauseOverlay, gameOverScreen);
-        UIManager.showOverlay(gameOverScreen.id);
+        
+        // Manual DOM manipulation for game over screen
+        if (mainGameInterface) mainGameInterface.style.display = 'none';
+        if (splashScreen) splashScreen.style.display = 'none'; // Should already be hidden
+        if (pauseOverlay) pauseOverlay.style.display = 'none'; // Hide pause overlay if it was somehow active
+        if (gameOverScreen) gameOverScreen.style.display = 'flex'; // Show the game over screen
     }
 
     // --- Input Handling ---
@@ -281,10 +282,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         isPaused = !isPaused;
         if (isPaused) {
-            UIManager.showOverlay('pause-overlay');
+            UIManager.showPauseOverlay();
             // Timer is stopped by its own logic checking isPaused flag
         } else {
-            UIManager.hideOverlay('pause-overlay');
+            UIManager.hidePauseOverlay();
             // Timer resumes by its own logic
         }
     }
@@ -294,12 +295,12 @@ document.addEventListener('DOMContentLoaded', () => {
     resumeGameBtn.addEventListener('click', togglePause);
 
     playAgainBtn.addEventListener('click', () => {
-        UIManager.hideOverlay(gameOverScreen.id);
+        if (gameOverScreen) gameOverScreen.style.display = 'none';
         initializeGame();
     });
     backToMenuBtnGameOver.addEventListener('click', () => {
-        UIManager.hideOverlay(gameOverScreen.id);
-        UIManager.showScreen('splash', mainGameInterface, splashScreen, pauseOverlay, gameOverScreen);
+        if (gameOverScreen) gameOverScreen.style.display = 'none';
+        UIManager.showSplashScreen();
     });
     
     document.querySelectorAll('a.home-button, #pause-overlay a[href="../index.html"]').forEach(link => {
