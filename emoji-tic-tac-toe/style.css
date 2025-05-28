@@ -1,19 +1,11 @@
 /* EMOJI TIC-TAC-TOE - GAME-SPECIFIC STYLES */
 
-/* Body and .game-container are styled by shared/common-ui.css */
-
-/* Splash Screen, Pause Overlay, Win Screen specific text/decor can be customized here if needed,
-   but their layout and primary button styles come from shared/common-ui.css */
-
-#splash-screen h1 { /* Override if a different color is desired for this game's splash */
-    /* color: #ffeeaaff; */ /* Example: a slightly different splash title color */
+#splash-screen h1 {
 }
 
 /* Main Game Interface specific styles */
 #main-game-interface {
-    /* display: none; is set by UIManager initially */
-    /* flex properties are set by UIManager when shown */
-    padding-top: 20px; /* Space for game status */
+    padding-top: 20px;
 }
 
 #game-status {
@@ -22,17 +14,17 @@
     color: #fff;
     margin-bottom: 25px;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-    min-height: 1.8em; /* Prevent layout shift when text changes */
+    min-height: 1.8em;
 }
 
 #tic-tac-toe-board {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
-    width: 300px; /* 3 cells * (80px width + 2*5px padding) = 270, + 2*10px gap + 2*5px board padding */
-    height: 300px; /* Adjust as needed */
-    gap: 10px; /* Gap between cells */
-    background-color: rgba(0, 0, 0, 0.1); /* Slightly darker board area */
+    width: 300px;
+    height: 300px;
+    gap: 10px;
+    background-color: rgba(0, 0, 0, 0.1);
     padding: 10px;
     border-radius: 10px;
     box-shadow: inset 0 0 8px rgba(0,0,0,0.3);
@@ -45,12 +37,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 3.5em; /* Size of the emoji */
-    color: #fff; /* Emoji color */
+    font-size: 3.5em;
+    color: #fff;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    user-select: none; /* Prevent text selection of emojis */
+    user-select: none;
 }
 
 .tic-tac-toe-cell:hover {
@@ -60,12 +52,12 @@
 
 .tic-tac-toe-cell.occupied:hover {
     cursor: not-allowed;
-    transform: scale(1); /* No hover effect if occupied */
-    background-color: rgba(255, 255, 255, 0.2); /* Keep original background */
+    transform: scale(1);
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
-.tic-tac-toe-cell.win-cell { /* Style for cells part of a winning line */
-    background-color: #86e75a !important; /* Bright green like score, important to override hover */
+.tic-tac-toe-cell.win-cell {
+    background-color: #86e75a !important;
     color: #333 !important;
     animation: pulseWinCell 0.8s infinite alternate;
 }
@@ -78,15 +70,9 @@
 
 /* Game Controls */
 #game-controls {
-    /* display, justify-content, gap, margin-top are set in HTML or by common styles if standardized */
 }
 
-/* Buttons like #restart-game-btn, #pause-game-btn, #exit-game-btn will use 
-   .game-button and modifier classes from common-ui.css. 
-   Specific overrides if needed can go here. */
-
 #restart-game-btn {
-    /* This will use .game-button.pink from common-ui.css via HTML class */
 }
 
 /* Responsive adjustments for Tic-Tac-Toe */
@@ -96,13 +82,12 @@
         margin-bottom: 20px;
     }
     #tic-tac-toe-board {
-        width: 240px; /* Adjust for smaller screens */
+        width: 240px;
         height: 240px;
         gap: 8px;
         padding: 8px;
     }
     .tic-tac-toe-cell {
-        font-size: 2.8em; /* Smaller emojis for smaller cells */
+        font-size: 2.8em;
     }
-    /* Button sizes are handled by common responsive styles */
 }

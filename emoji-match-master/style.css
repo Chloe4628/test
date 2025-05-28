@@ -2,21 +2,8 @@
 
 /* Styles specific to the Emoji Match Master game interface */
 
-/* Body is styled by shared/common-ui.css */
-/* .game-container is styled by shared/common-ui.css */
-
-/* Splash Screen and its specific content styles are in shared/common-ui.css,
-   but if Emoji Match Master had unique H1 styling for its splash, it would go here.
-   Example:
-   #splash-screen h1 {
-       color: #specific-game-color; 
-   }
-*/
-
 /* Main Game Interface specific styles */
 #main-game-interface {
-    /* Flex properties are now set by JS in showGameInterface, 
-       or could be in shared/common-ui.css if #main-game-interface is a common ID pattern */
 }
 
 #game-info {
@@ -45,7 +32,6 @@
 #score { color: #86e75a; }
 #timer { color: #f77272; }
 
-/* Grid Size Selector Buttons - using common button base, but specific styling here */
 #grid-size-selector {
     display: flex;
     justify-content: center;
@@ -53,31 +39,22 @@
     margin-bottom: 20px;
 }
 
-.grid-size-btn { /* This is a .game-button-secondary.translucent */
-    /* Base styles from .game-button, .game-button-secondary, .translucent in common-ui.css */
+.grid-size-btn {
 }
-.grid-size-btn.active { /* This is .game-button-secondary.translucent.active */
-    /* Active state from common-ui.css */
+.grid-size-btn.active {
 }
 
 
-/* Restart Button - specific instance of a .game-button */
-#restart-btn { /* This is a .game-button.pink (similar to play-again) */
+#restart-btn {
     background-color: #ff758c; 
-    /* Other .game-button styles apply from common-ui.css */
-    /* margin-bottom is handled by #game-controls or specific layout needs if outside */
 }
 #restart-btn:hover {
     background-color: #ff5c77; 
 }
 
-/* #game-controls is now styled in shared/common-ui.css */
-
-#pause-game-btn { /* This is a .game-button-secondary.orange */
-    /* Styles from common-ui.css */
+#pause-game-btn {
 }
-#exit-game-btn { /* This is a .game-button-secondary.grey */
-    /* Styles from common-ui.css */
+#exit-game-btn {
 }
 
 
@@ -98,7 +75,7 @@
     box-shadow: inset 0 0 10px rgba(0,0,0,0.3); 
 }
 
-#game-board p { /* Placeholder text */
+#game-board p {
     text-align: center;
     color: rgba(255, 255, 255, 0.7);
     margin: auto;
@@ -186,24 +163,11 @@
 }
 
 
-/* Pause Overlay, Win Screen styles are now in shared/common-ui.css */
-
 /* Game-specific responsive adjustments (if any beyond common ones) */
 @media (max-width: 480px) {
-    /* Common responsive rules are in shared/common-ui.css */
-    
     /* Emoji Match Master specific responsive rules */
     #game-info { flex-direction: column; gap: 10px; margin-bottom: 15px; align-items: center; }
     #score-container, #timer-container { width: 80%; max-width: 250px; padding: 10px; }
     #grid-size-selector { gap: 5px; }
-    /* .grid-size-btn uses .game-button-secondary, responsive handled by common if font-size changes there */
-    /* #restart-btn uses .game-button, responsive handled by common if font-size changes there */
-    /* #pause-game-btn, #exit-game-btn use .game-button-secondary */
     #game-controls { margin-top: 15px; }
-
-    /* Note: Tile and game board size responsiveness for very small screens 
-       would ideally involve JS adjusting tile sizes or more complex CSS grid adjustments.
-       The current fixed tile sizes (70px) are maintained.
-       The common responsive styles might adjust overall container padding.
-    */
 }

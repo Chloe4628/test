@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake Adventure - Game World</title>
+    <link rel="stylesheet" href="../shared/common-ui.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="../shared/assets/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <div class="game-container" id="snake-game-container">
+        <!-- Splash Screen -->
+        <div id="splash-screen" class="game-screen-overlay" style="display: flex;">
+            <h1>🐍 Snake Adventure 🌟</h1>
+            <p id="splash-instructions">Use arrow keys to control the snake. Collect stars ⭐ to grow. Avoid walls and your own tail! You have 60 seconds.</p>
+            <div id="splash-decor">🐍</div>
+            <button id="start-game-btn" class="game-button game-button-primary green">Start Game</button>
+        </div>
+
+        <!-- Main Game Interface -->
+        <div id="main-game-interface" style="display: none;">
+            <div id="game-info-snake">
+                <div>Score: <span id="score-value">0</span></div>
+                <div>Time: <span id="timer-value">60</span>s</div>
+            </div>
+            <canvas id="game-area-snake" width="400" height="400"></canvas> <!-- Dimensions can be adjusted by JS/CSS -->
+            <div id="game-controls">
+                <button id="pause-game-btn" class="game-button game-button-secondary orange">Pause</button>
+                <a href="../index.html" class="game-button game-button-secondary home-button">
+                    <img src="../shared/assets/icons/home.svg" alt="Home" class="icon"/> Game World
+                </a>
+            </div>
+        </div>
+
+        <!-- Pause Overlay -->
+        <div id="pause-overlay" class="game-screen-overlay">
+            <h2>Game Paused</h2>
+            <button id="resume-game-btn" class="game-button game-button-primary green">Resume</button>
+            <a href="../index.html" class="game-button game-button-secondary grey" style="margin-top: 15px;">
+                <img src="../shared/assets/icons/exit.svg" alt="Exit" class="icon"/> Exit to Menu
+            </a>
+        </div>
+
+        <!-- Game Over Screen -->
+        <div id="game-over-screen-snake" class="game-screen-overlay">
+            <h2>Game Over!</h2>
+            <div id="win-decor">💀</div>
+            <p id="win-sub-message">Your snake got tangled!</p>
+            <div id="win-score-details">
+                Final Score: <span id="final-score-display">0</span>
+            </div>
+            <div class="win-screen-buttons">
+                <button id="play-again-btn-snake" class="game-button game-button-primary green">Play Again</button>
+                <button id="back-to-menu-btn-snake" class="game-button game-button-secondary grey">Back to Menu</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../shared/UIManager.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
